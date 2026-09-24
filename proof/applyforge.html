@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ApplyForge. Real scoring output. Ruan Grobler</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --bg:#101214; --card:#17191c; --card2:#1d2024; --border:#272b30;
+  --border2:#343a41; --ink:#ece5d3; --soft:#b8b2a4; --mut:#7d7a70;
+  --teal:#2cccc8; --amber:#e0a83c; --green:#4fc383; --red:#e06c5c;
+  --max:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  padding-bottom:70px;overflow-x:hidden}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:34px;font-weight:400;
+  line-height:1.1;margin-bottom:8px}
+h2{font-size:17px;margin-bottom:4px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:999px;
+  padding:9px 17px;font-size:13.5px;font-weight:600;text-decoration:none;
+  border:1px solid var(--border2);color:var(--ink);background:var(--card)}
+.btn:hover{border-color:var(--teal)}
+.btn.primary{background:var(--teal);border-color:var(--teal);color:#08302f}
+.bar .note{margin-left:auto;color:var(--mut);font-size:13px;max-width:420px;
+  text-align:right}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:20px 22px;margin-bottom:16px}
+.card > h2{margin-bottom:10px}
+.lede{color:var(--soft);font-size:14px;margin-bottom:18px;max-width:760px}
+.note{color:var(--soft);font-size:13.5px;border-left:3px solid var(--teal);
+  padding:8px 0 8px 13px;margin:14px 0;background:rgba(44,204,200,.05)}
+.warn{border-left-color:var(--amber);background:rgba(224,168,60,.06)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:620px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--border);
+  vertical-align:top}
+th{color:var(--mut);font-size:11px;letter-spacing:1.3px;text-transform:uppercase;
+  font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.score{display:inline-block;min-width:34px;text-align:center;border-radius:999px;
+  padding:2px 9px;font-weight:700;font-size:12.5px}
+.s-hi{background:rgba(79,195,131,.16);color:var(--green)}
+.s-mid{background:rgba(224,168,60,.16);color:var(--amber)}
+.s-lo{background:rgba(125,122,112,.16);color:var(--mut)}
+.pill{display:inline-block;border:1px solid var(--border2);color:var(--soft);
+  border-radius:999px;padding:2px 10px;font-size:11.5px;white-space:nowrap}
+.pill.on{border-color:rgba(79,195,131,.5);color:var(--green)}
+ul.q{list-style:none;display:grid;gap:7px;margin:10px 0}
+ul.q li{display:flex;gap:9px;align-items:flex-start;font-size:14px}
+.tick{flex:0 0 auto;font-weight:700;width:16px}
+.met .tick{color:var(--green)}
+.unmet .tick{color:var(--red)}
+.unmet{color:var(--soft)}
+ul.g{margin:10px 0 0 18px;font-size:14px;color:var(--soft)}
+ul.g li{margin-bottom:6px}
+.letter{background:var(--card2);border:1px solid var(--border);
+  border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.62;
+  white-space:pre-wrap;color:var(--soft)}
+.anon{color:var(--soft);border-bottom:1px dotted var(--border2);
+  font-style:italic}
+.redact{display:inline-block;background:rgba(224,168,60,.14);
+  border:1px dashed rgba(224,168,60,.55);color:var(--amber);
+  border-radius:5px;padding:0 6px;font-size:12px;font-weight:600;
+  letter-spacing:.2px}
+.meta{color:var(--mut);font-size:12.5px;margin-top:10px}
+footer{color:var(--mut);font-size:12.5px;text-align:center;padding:34px 22px 0;
+  max-width:var(--max);margin:0 auto;line-height:1.7}
+@media (max-width:720px){
+  h1{font-size:27px}
+  .bar .note{margin-left:0;text-align:left;max-width:100%}
+  .card{padding:17px 15px;border-radius:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="bar">
+  <a class="btn" href="../index.html">&#8592;&nbsp; Back to the portfolio</a>
+  <span class="note">Every score and every line below is real output from the
+  running system, captured from its live API.</span>
+</div>
+
+<h1>ApplyForge</h1>
+<p class="lede">ApplyForge scrapes live job boards, scores every listing against
+my CV using structured Claude outputs, and writes an application pack for the
+matches. This page is a static capture of the real database behind it:
+21 scored listings, 3 with a generated pack, top score 60.
+Nothing here is illustrative or rewritten.</p>
+
+<div class="card">
+  <h2>Why the scores are low, and why that is the point</h2>
+  <p class="lede" style="margin-bottom:0">A scorer that flatters its owner is
+  useless. This one is built to argue against me: it marks unmet requirements as
+  unmet, writes the gaps in plain language, and refuses to inflate a fit it
+  cannot evidence. The top score on my own database is 60 out of 100. That
+  number is the honest one, and a scorer I could not trust to tell me no would
+  not be worth running.</p>
+</div>
+
+<div class="card">
+  <h2>The ranked list. All 21 scored listings</h2>
+  <p class="lede">Sorted by score, exactly as the system ranks them. The
+  qualifications column counts requirements the system judged met against the
+  total it extracted from the ad.</p>
+  <div class="note">Company names are replaced with a sector descriptor and
+  locations are reduced to a city. These are live vacancies at real recruiters
+  and employers, and publishing my own tool's verdict next to their names would
+  be unfair to them and tells a reader nothing. Every score, title, requirement
+  check, reason and gap below is untouched.</div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr>
+      <th>Score</th><th>Role</th><th>Company, by sector</th><th>Location</th>
+      <th>Fit label</th><th>Quals met</th><th>Status</th>
+    </tr></thead>
+    <tbody>
+<tr><td class="num"><span class="score s-hi">60</span></td><td>AI Automation Engineer (LLMs &amp; Agentic AI) - EST Working Hours (Remote)</td><td><span class="anon" title="Company name replaced with a sector descriptor">Remote staffing provider, South Africa</span></td><td>Remote, South Africa</td><td>Possible fit</td><td class="num">5 of 7</td><td><span class="pill on">pack generated</span></td></tr>
+<tr><td class="num"><span class="score s-hi">60</span></td><td>Business Applications Developer (Microsoft Power Platform &amp; Business Intelligence)</td><td><span class="anon" title="Company name replaced with a sector descriptor">Offshore staffing agency, US client</span></td><td>Remote, South Africa</td><td>Possible fit</td><td class="num">3 of 7</td><td><span class="pill on">pack generated</span></td></tr>
+<tr><td class="num"><span class="score s-hi">56</span></td><td>AI &amp; Automation Specialist</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter, Western Cape</span></td><td>Stellenbosch</td><td>Possible fit</td><td class="num">5 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-mid">52</span></td><td>AI &amp; Automation Specialist to Information Technology</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter, Western Cape</span></td><td>Stellenbosch</td><td>Possible fit</td><td class="num">4 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-mid">45</span></td><td>Power Platform AI Developer</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT services company, Gauteng</span></td><td>Johannesburg</td><td>Weak fit</td><td class="num">3 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-mid">45</span></td><td>Power Platform and AI Developer</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter</span></td><td>Remote, South Africa</td><td>Weak fit</td><td class="num">3 of 8</td><td><span class="pill on">pack generated</span></td></tr>
+<tr><td class="num"><span class="score s-lo">38</span></td><td>Microsoft Power Automate AI Specialist</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT services company, Gauteng</span></td><td>Johannesburg</td><td>Weak fit</td><td class="num">3 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">38</span></td><td>Business Intelligence Consultant</td><td><span class="anon" title="Company name replaced with a sector descriptor">Recruiter, undisclosed client</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">2 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">38</span></td><td>Microsoft Power Platform Specialist</td><td><span class="anon" title="Company name replaced with a sector descriptor">Software company</span></td><td>Cape Town, remote</td><td>Weak fit</td><td class="num">3 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">32</span></td><td>Junior AI &amp; Database Developer</td><td><span class="anon" title="Company name replaced with a sector descriptor">Recruiter, engineering and EPCM client</span></td><td>Johannesburg</td><td>Weak fit</td><td class="num">3 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">30</span></td><td>Business Intelligence &amp; Analytics Analyst</td><td><span class="anon" title="Company name replaced with a sector descriptor">Agricultural inputs group</span></td><td>Stellenbosch</td><td>Weak fit</td><td class="num">2 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">28</span></td><td>QA Automation Engineer (Remote)</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter, online education client</span></td><td>Cape Town, remote</td><td>Weak fit</td><td class="num">2 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">28</span></td><td>Automation Developer</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter</span></td><td>Johannesburg</td><td>Weak fit</td><td class="num">3 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">22</span></td><td>Legal Engineer</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">4 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">18</span></td><td>Intermediate Software Developer</td><td><span class="anon" title="Company name replaced with a sector descriptor">Management consultancy</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">1 of 8</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">18</span></td><td>Power Platform Solutions Architect</td><td><span class="anon" title="Company name replaced with a sector descriptor">IT recruiter</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">2 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">12</span></td><td>Automation Engineer</td><td><span class="anon" title="Company name replaced with a sector descriptor">Engineering recruiter</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">2 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">11</span></td><td>Automation Engineer</td><td><span class="anon" title="Company name replaced with a sector descriptor">Engineering recruiter</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">1 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">8</span></td><td>Snr Automation Sales Engineer - CPT</td><td><span class="anon" title="Company name replaced with a sector descriptor">Engineering recruiter</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">1 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">8</span></td><td>Snr Automation Sales Engineer - CPT</td><td><span class="anon" title="Company name replaced with a sector descriptor">Engineering recruiter, industrial automation client</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">1 of 7</td><td><span class="pill">scored</span></td></tr>
+<tr><td class="num"><span class="score s-lo">7</span></td><td>Automation Engineer</td><td><span class="anon" title="Company name replaced with a sector descriptor">Recruiter, Cape Town</span></td><td>Cape Town</td><td>Weak fit</td><td class="num">1 of 7</td><td><span class="pill">scored</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="card">
+  <h2>One listing in full. AI Automation Engineer (LLMs &amp; Agentic AI) - EST Working Hours (Remote)</h2>
+  <p class="lede"><span class="anon" title="Company name replaced with a sector descriptor">Remote staffing provider, South Africa</span> &middot;
+  Remote, South Africa &middot; scored
+  60 &middot; Possible fit</p>
+
+  <h2 style="margin-top:16px;font-size:14px">Requirements, checked one by one</h2>
+  <ul class="q">
+<li class="met"><span class="tick">&#10003;</span><span>Production AI automations shipped commercially</span></li>
+<li class="met"><span class="tick">&#10003;</span><span>Modern AI coding tools (Claude Code)</span></li>
+<li class="met"><span class="tick">&#10003;</span><span>Orchestration frameworks (n8n, agent workflows)</span></li>
+<li class="met"><span class="tick">&#10003;</span><span>REST API build and integration</span></li>
+<li class="met"><span class="tick">&#10003;</span><span>Docker and deployment practice</span></li>
+<li class="unmet"><span class="tick">&#10007;</span><span>3-5 years professional software engineering</span></li>
+<li class="unmet"><span class="tick">&#10007;</span><span>Remote in South Africa, 14:30-23:00 shift</span></li>
+  </ul>
+
+  <h2 style="margin-top:18px;font-size:14px">Why it scored what it did</h2>
+  <p class="lede" style="margin-bottom:0">His stack maps almost perfectly onto the ad: production LLM automations, a Claude Code agent rig with subagents and MCP, n8n/Twilio/Retell voice agents, REST APIs and a multi-stage Dockerfile. The blocker is tenure: the ad demands 3-5 years professional software engineering and his commercial track record is months, not years.</p>
+
+  <h2 style="margin-top:18px;font-size:14px">The gaps it held against me</h2>
+  <ul class="g">
+<li>Only months of professional engineering experience versus the 3-5 year minimum</li><li>Afternoon-to-late-night shift (14:30-23:00) plus SA public holidays; he is currently employed full time and only free after hours for interviews</li><li>No LangChain/LangGraph/CrewAI/AutoGen exposure evidenced, only n8n and Claude Code tooling</li><li>Mandatory 25 Mbps fibre and backup power not confirmed on CV</li><li>No stated salary; ad is a BPO placement so pay may not reach his <span class="redact" title="Removed before publication">[pay expectation removed]</span> anchor</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>The generated cover letter</h2>
+  <div class="note warn">Redactions are marked in place and nothing else is
+  edited. ApplyForge runs on my own job search data, so its raw output contains
+  my personal contact detail, my pay expectations and real deal values from an
+  employer system. Those and the company name are the only things removed, every
+  removal is shown where it happened, and the rest is the model's output word for
+  word.</div>
+  <div class="letter">I ship production LLM automations, not prototypes. At TrueProp Property Services I built and deployed six live automation systems in my first month, including an AI email intake agent that reads inbound business mail, extracts requestor, department, request and priority, opens numbered tickets and replies automatically, and an AI broker deal pipeline that captured unaided deals of <span class="redact" title="Removed before publication">[employer deal values removed]</span> in its first weeks. I also built an OCR classifier that sorts branch scans into eight categories and files them without a human touching them. On the agent and API side, I founded Receva, an AI voice receptionist running on Retell AI, n8n, Twilio and REST APIs, taking real customer calls end to end with booking capture, CRM writeback and follow-up automation. I work daily in Claude Code with custom subagents, hooks, MCP servers and nightly scheduled agents that run research and build tasks unattended, and I use the Claude API with structured outputs in ApplyForge, a Next.js and TypeScript job-matching engine I containerised with a multi-stage Dockerfile down to a 305 MB image, smoke tested end to end. Being straight with you: my professional engineering time is months, not three to five years, so I am shorter on tenure than your minimum and my orchestration work is n8n and Claude Code rather than LangChain or CrewAI. What I bring instead is shipped, monitored, documented production work with measured business impact. The 14:30 to 23:00 EST shift suits me and I am fully remote capable from Cape Town.</div>
+  <div class="note warn" style="margin-top:14px">One correction, left visible on
+  purpose. This letter was generated before I audited my own numbers, and it
+  says six live systems built. The accurate count is five live in my first
+  month, three built from scratch and two taken over from a departed developer
+  and hardened, plus a sixth built and in business walkthrough. The letter is
+  left exactly as the system produced it, because quietly correcting old output
+  on a page whose whole claim is that the output is real would be the worse
+  choice. The rest of the site carries the corrected figure.</div>
+  <p class="meta">Generated
+  2026-07-29T15:19:41.321Z.
+  The pack also contains a tailored CV and short application answers. Those are
+  not published here: both are dense with personal contact detail and pay
+  expectations, and redacting them line by line would leave nothing checkable.</p>
+</div>
+
+<div class="card">
+  <h2>What this page does not prove</h2>
+  <p class="lede" style="margin-bottom:0">It does not prove the scores are
+  well calibrated, because there is no hiring outcome to test them against yet.
+  It proves the system ingests real listings, extracts requirements from free
+  text, judges each one against a fixed CV, writes its reasoning down, and
+  produces a finished work product. Calibration needs outcomes, and outcomes
+  need time.</p>
+</div>
+
+<footer>
+  Static capture of a running local system. Job listing text belongs to the
+  original advertisers and is quoted only as scoring input.<br>
+  Ruan Grobler &middot;
+  <a href="mailto:ruan@receva.co.za">ruan@receva.co.za</a>
+</footer>
+
+</div>
+</body>
+</html>

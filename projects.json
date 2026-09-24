@@ -1,0 +1,548 @@
+[
+  {
+    "slug": "deal-intake",
+    "name": "Deal Intake Automation (AI Extraction)",
+    "org": "TrueProp",
+    "dept": "TrueProp Property Services (True Group). Deal pipeline.",
+    "status": "Live since 2026-07-09",
+    "statusKind": "live",
+    "oneline": "Broker deal emails become structured pipeline records in under a minute, hands free.",
+    "line": "Broker deal emails become tracked pipeline records in under a minute.",
+    "metric": "1.3 to 1.8 hrs/week (est)",
+    "problem": "Every broker deal email meant about twenty minutes of reading, retyping and filing by hand. The record was only as good as the typist.",
+    "did": "I built a Power Automate flow that uses AI extraction to pull the deal fields out of free text email. It creates the record, files the attachments, and blocks duplicates on a unique key.",
+    "proofNote": "Employer system, so no public link. I can walk through the live flow and its reconciliation report in an interview.",
+    "before": "Every broker deal email meant about 20 minutes of manual reading, retyping and filing (untimed estimate), with the record only as good as the person typing it.",
+    "after": "Mail lands, AI extracts the deal, a pipeline record appears, attachments file themselves, and duplicates are blocked. Under a minute, hands free. The historic backlog was migrated with a machine reconciliation of every record against the source, rather than a spot check.",
+    "how": [
+      "Mail arrives, AI extracts the deal fields from free text with no template and no sender training, a structured record is created, duplicates are blocked on a unique key, and a scheduled reconciliation plus failure alerting means nothing passes through unseen."
+    ],
+    "hours": "1.3 to 1.8 hrs/week (est at ~5 deals/week)",
+    "hoursLow": 1.3,
+    "hoursHigh": 1.8,
+    "value": "~R3,000 to R9,400 / year (est)",
+    "valueLow": 3000,
+    "valueHigh": 9400,
+    "risk": "Runs with failure alerting, environment isolation and a weekly reconciliation backstop, so intake cannot slip quietly. Signed off by the business.",
+    "stack": [
+      "Power Automate",
+      "AI Builder",
+      "SharePoint",
+      "Outlook shared mailbox"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the architecture and the platform stated above, a live walkthrough of the running flow and its reconciliation report in an interview, and written stakeholder confirmation that it runs in production, on request.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "ticket-intake",
+    "name": "AI Ticket Intake",
+    "org": "TrueProp",
+    "dept": "TrueProp Property Services (True Group). Support and maintenance.",
+    "status": "Live since 2026-07-20",
+    "statusKind": "live",
+    "oneline": "Free text request emails become numbered, tracked, auditable tickets.",
+    "line": "Request emails become numbered tickets on a tracked list, automatically.",
+    "metric": "~1 hr/week saved (est)",
+    "problem": "Maintenance and support requests came in as free text emails. No reference number, no queue, and no way to see what was still outstanding.",
+    "did": "I built a flow where AI classifies the mail into structured fields, writes a numbered ticket with an audit trail, and auto replies to the requester with the number and a correction path.",
+    "proofNote": "Employer system. In an interview I can send a test mail and show it become a numbered ticket live.",
+    "before": "Maintenance and support requests arrived as free text emails with no reference number and no tracked queue.",
+    "after": "AI reads the mail and logs a numbered ticket with structured fields on a tracked list, with a full audit trail and an automatic acknowledgement to the requester. Verified with test tickets the day it shipped.",
+    "how": [
+      "Trigger. A request mail arrives in a monitored mailbox.",
+      "Classify. AI reads the free text and returns structured fields: requester, department, category and priority.",
+      "Number. The ticket is written to a tracked list with an automatic reference and a full audit trail.",
+      "Reply. The requester gets an automatic acknowledgement carrying the ticket number and a correction path if AI read it wrong.",
+      "Guard. Extraction failures alert instead of failing silently."
+    ],
+    "hours": "~1 hr/week (est)",
+    "hoursLow": 1,
+    "hoursHigh": 1,
+    "value": "~R2,300 to R5,200 / year (est)",
+    "valueLow": 2300,
+    "valueHigh": 5200,
+    "risk": "Delivered the same day the requirement was raised. Failures alert instead of failing quietly, and every ticket carries a correction path so a bad AI read is fixable by the requester.",
+    "stack": [
+      "Power Automate",
+      "AI Builder",
+      "SharePoint",
+      "Outlook"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the intake, numbering and acknowledgement design stated above, a live walkthrough in which a test mail becomes a numbered ticket, and written stakeholder confirmation on request.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "handover-records",
+    "name": "AI Meeting Transcript Handover Records",
+    "org": "TrueProp",
+    "dept": "TrueProp Property Services (True Group). Operations.",
+    "status": "Live since 2026-07-21",
+    "statusKind": "live",
+    "oneline": "A meeting transcript goes in, an accepted handover record and a maintenance entry come out.",
+    "line": "A meeting transcript goes in, an approved handover record comes out.",
+    "metric": "~0.75 hrs/week (est)",
+    "problem": "Handover detail sat inside meeting recordings. Turning a transcript into a written, searchable record was a manual write up every single time.",
+    "did": "I built it to the operations stakeholder's spec. AI drafts a structured handover record from the transcript, a human approves or edits it, and that approval automatically creates the maintenance entry.",
+    "proofNote": "Employer system. I can walk the full loop live, transcript to approved record to maintenance entry, in an interview.",
+    "before": "Handover detail lived inside meeting recordings. Turning a transcript into a written, searchable record was a manual write up job every time.",
+    "after": "A transcript goes in, an AI drafted handover record comes out for acceptance, and approval auto creates the maintenance entry. The full loop was verified the same day it shipped, built to the operations stakeholder's own spec.",
+    "how": [
+      "Input. A meeting transcript is submitted to the flow.",
+      "Draft. AI converts the transcript into a structured handover record and checks the delivery against what was originally requested.",
+      "Review. A person accepts or edits the draft. Nothing is written unattended.",
+      "Commit. Acceptance automatically creates the maintenance entry, so the written record and the work queue never drift apart.",
+      "Guard. Human sign off is mandatory by design, so AI drafts but never decides."
+    ],
+    "hours": "~0.75 hrs/week (est, volumes still baselining)",
+    "hoursLow": 0.75,
+    "hoursHigh": 0.75,
+    "value": "~R1,800 to R3,900 / year (est)",
+    "valueLow": 1800,
+    "valueHigh": 3900,
+    "risk": "Early volumes are still baselining, so the figure above is deliberately conservative. Designed to return more value as handover count grows.",
+    "stack": [
+      "Power Automate",
+      "AI Builder",
+      "SharePoint",
+      "Teams"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the draft and accept design stated above, a live walkthrough from transcript to accepted record to maintenance entry, and confirmation on request from the operations stakeholder whose specification it was built to.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "compliance-rescue",
+    "name": "Compliance Flow Takeover (Probation Reviews)",
+    "org": "TrueProp",
+    "dept": "TrueProp Property Services (True Group). HR compliance.",
+    "status": "Taken over and hardened, live since 2026-07-23",
+    "statusKind": "live",
+    "oneline": "Five scheduled HR compliance flows taken over, repaired, monitored and documented.",
+    "line": "I took over five orphaned HR compliance flows and hardened them.",
+    "metric": "5 flows, ~0.5 hrs/week (est)",
+    "problem": "I inherited five scheduled HR probation review flows. No monitoring, no runbook, and nobody but the original author could maintain them.",
+    "did": "I took ownership, rebuilt the connections, and tested all five end to end against real review dates. Then I added failure alerting and wrote a runbook covering triggers, schedule and recovery.",
+    "proofNote": "Employer system. The runbook exists, and I can walk through all five schedules and their failure alerting.",
+    "before": "Five scheduled HR probation review flows I inherited had no monitoring and no written runbook, so they could not be maintained by anyone but their original author.",
+    "after": "All five taken over, repaired and tested end to end, then hardened with failure alerting and a written runbook. Reviews fire on schedule and any engineer can now maintain them.",
+    "how": [
+      "Take ownership. Five scheduled compliance flows moved under a single documented owner.",
+      "Repair. Connections rebuilt and each flow tested end to end against real review dates.",
+      "Harden. Failure alerting added, so a silent stop is no longer possible.",
+      "Document. A written runbook covering triggers, schedule and recovery, so the next person is never stuck."
+    ],
+    "hours": "~0.5 hrs/week (est)",
+    "hoursLow": 0.5,
+    "hoursHigh": 0.5,
+    "value": "~R1,200 to R2,600 / year (est)",
+    "valueLow": 1200,
+    "valueHigh": 2600,
+    "risk": "Single owner risk removed. Alerting plus documentation means the system survives any one person leaving, including me.",
+    "stack": [
+      "Power Automate",
+      "SharePoint",
+      "Outlook"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the written runbook the takeover produced, a live walkthrough of the five schedules and their failure alerting, and written confirmation of the ownership handover, on request.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "document-sorter",
+    "name": "Scanned Document Classification",
+    "org": "TrueProp",
+    "dept": "Agrivest, the farming subsidiary of True Group. Site administration.",
+    "status": "In production since 2026-07-22",
+    "statusKind": "live",
+    "oneline": "Scanned site paperwork classifies itself and files itself, about 20 to 25 pages a day.",
+    "line": "Scanned site paperwork classifies and files itself, 20 to 25 pages daily.",
+    "metric": "20 to 25 pages/day (reported)",
+    "problem": "Scanned site paperwork, mostly daily cashups and supplier invoices, was read, sorted and filed by hand at the branch.",
+    "did": "I took ownership of the scanning pipeline and rebuilt it. AI Builder OCR reads each scan, classifies it into one of eight categories, and files it into the right shared library with a logged trail.",
+    "proofNote": "Employer system. I can walk through the live pipeline, its filing log, and the written rollout plan for the second site.",
+    "before": "Scanned site paperwork, mostly daily cashups and supplier invoices, was read, sorted and filed by hand at the branch.",
+    "after": "I took ownership of the scanning pipeline, rebuilt it and hardened it. Daily cashups and invoices now classify into eight categories and file themselves at the first site, roughly 20 to 25 pages a day (site reported), with a documented rollout plan for site two.",
+    "how": [
+      "Trigger. The site copier mails the scanned batch to a monitored mailbox.",
+      "Classify. AI reads the scan and decides which of eight document categories it belongs to.",
+      "File. The document lands in the correct shared library, never a personal drive, which is the POPIA safe default.",
+      "Trail. Every filing is logged, so any document can be traced back to the scan that produced it.",
+      "Scale. A written rollout plan repeats the same pattern at the next site without a rebuild."
+    ],
+    "hours": "~1.25 hrs/week (est, one site)",
+    "hoursLow": 1.25,
+    "hoursHigh": 1.25,
+    "value": "~R2,900 to R6,500 / year (est)",
+    "valueLow": 2900,
+    "valueHigh": 6500,
+    "risk": "Continuity secured on a paperwork critical system. POPIA aware filing (shared libraries, never personal drives). Failure alerts wired and ownership documented.",
+    "stack": [
+      "Power Automate",
+      "AI Builder OCR",
+      "SharePoint",
+      "Scanner mailbox"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the eight category classification and the POPIA safe filing design stated above, a live walkthrough of the pipeline and its filing log, the written rollout plan for the second site, and the site reported daily volume, on request.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "bulk-ordering",
+    "name": "Bulk Ordering Platform",
+    "org": "TrueProp",
+    "dept": "A retail butchery branch in the group. Bulk buyer channel.",
+    "status": "Built end to end 2026-07-24, in business walkthrough before go live",
+    "statusKind": "built",
+    "oneline": "A QR code replaces a phone-and-WhatsApp bulk order channel that kept no record at all.",
+    "line": "A QR code replaces a phone and WhatsApp order channel with no record.",
+    "metric": "R0 claimed until live",
+    "problem": "Bulk buyers ordered by phone, WhatsApp and walk in. Missed messages meant lost orders, and no order was recorded anywhere at all.",
+    "did": "I built it end to end in three days. One link or QR code to order, an instant reference number, a mobile approval step for the branch manager, then an automatic confirmation and a prep sheet.",
+    "proofNote": "Employer system, still in business walkthrough, so I claim no value yet. I can demo a test order end to end.",
+    "before": "Bulk buyers ordered by phone, WhatsApp and walk-in. Missed calls and messages meant lost orders, walk-ins pressured the shop at its busiest, and no order was recorded anywhere. No volumes, no repeat buyer data, and no way to grow the channel because nobody could see it.",
+    "after": "One link or QR code. The buyer submits and gets a reference number instantly, the branch manager approves or declines from his phone, the buyer receives a confirmation with a collection time, and the branch receives a prep sheet saying exactly what to pull and when. Every order recorded with a status. Built end to end in three days after being ranked the number one priority by management.",
+    "how": [
+      "Intake. A single link or printed QR code opens the order form. No app, no account, nothing for the buyer to install.",
+      "Reference. Every submission gets a reference number on the spot, so the order exists in writing from the first second.",
+      "Approve. The branch manager approves or declines from his phone, because he is on the floor and not at a desk.",
+      "Confirm. The buyer gets a confirmation carrying the collection time, which is the detail the old channel kept losing.",
+      "Prepare. The branch gets a prep sheet listing exactly what to pull and when, so approval and preparation cannot drift apart.",
+      "Guard. Failure alerting is wired, so a submission cannot disappear quietly the way a missed WhatsApp did."
+    ],
+    "hours": "Revenue enablement, not hours saved",
+    "value": "R0 claimed until it is live and volumes are baselined",
+    "risk": "No value is claimed on this page while it is still in business walkthrough. Every order carries a reference number by design, which produces the first order data this channel has ever had. Payment on collection is unchanged, so the build adds no payment risk. Scales to another branch at no extra cost.",
+    "stack": [
+      "Power Automate",
+      "Microsoft Forms",
+      "SharePoint",
+      "Outlook"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the intake, approval and prep sheet design stated above, a live walkthrough of a test order from QR code to confirmation, and written confirmation on request that it was ranked the top priority and built in three days.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "hr-onboarding",
+    "name": "HR Onboarding System",
+    "org": "TrueProp",
+    "dept": "Group HR. New hire onboarding and probation.",
+    "status": "Built 2026-08, in business demo before go live",
+    "statusKind": "built",
+    "oneline": "Two macro-enabled Excel workbooks replaced by a web system anyone can open on any device.",
+    "line": "Two macro-enabled workbooks replaced by a system that works on any device.",
+    "metric": "45 tasks tracked per hire",
+    "problem": "New hire onboarding ran on two macro-enabled Excel workbooks. Desktop only, one person in the file at a time, and no view across employees.",
+    "did": "I audited the live process and wrote down four failure modes before building anything. Then I replaced both workbooks with a web system: a 45 task workflow per hire, a cross employee dashboard, automated task and probation emails, and CSV export.",
+    "proofNote": "Employer system, in business demo, so I claim no hours saved yet. I can walk the workflow, the dashboard and a test mode email run in an interview.",
+    "before": "Onboarding lived in two macro-enabled workbooks. They opened on a desktop and nowhere else, only one person could hold the file at a time, task state could silently diverge between the two copies, and nobody could answer where any single new hire had got to without opening a file and reading it. Probation dates were tracked by somebody remembering to look.",
+    "after": "One system, opened in a browser on any device. Each hire carries a 45 task workflow with owners and due dates, a dashboard shows every employee at once instead of one file at a time, task and probation emails send themselves on schedule, and HR exports its own CSV whenever it wants the data out. A test mode routes every email to a safe address so a full run can be rehearsed without messaging a real new starter.",
+    "how": [
+      "Audit first. I walked the live process and documented four failure modes in the existing workbooks before writing any code, so the replacement was aimed at real defects rather than at a rewrite for its own sake.",
+      "Workflow. 45 onboarding tasks per hire, each with an owner and a due date, so status is a fact in the system rather than a question asked in a meeting.",
+      "Dashboard. Every employee visible at once, which is the thing two separate desktop workbooks structurally could not do.",
+      "Email automation. Task reminders and probation notices send on schedule, so a probation date cannot pass because nobody looked.",
+      "Test mode. Every email can be routed to a safe address, so a full run is rehearsable without a real new starter receiving anything.",
+      "Export. CSV out on demand, so HR is never locked into the tool and can reconcile against its own records."
+    ],
+    "hours": "Not claimed until it is live and a full hire cycle is measured",
+    "value": "R0 claimed until live",
+    "risk": "No value is claimed on this page while it is in business demo. The build removes single file contention and desktop dependence, and the test mode means an email run can be verified before any real new starter is contacted. Personal information stays inside the system rather than in workbook copies on individual drives, which is the POPIA improvement over what it replaces.",
+    "stack": [
+      "Node.js",
+      "Express",
+      "SQLite",
+      "Scheduled jobs",
+      "CSV export"
+    ],
+    "verify": "No public link can exist for an employer system, and none is invented here. What is checkable: the four documented failure modes in the process I replaced, the 45 task workflow, the cross employee dashboard, and a test mode email run demonstrated live in an interview.",
+    "access": "Employer system. Live walkthrough available in an interview, within the employer's confidentiality terms."
+  },
+  {
+    "slug": "receva-pilot",
+    "name": "Receva: Live AI Voice Receptionist",
+    "org": "Receva",
+    "dept": "Cape Town hospitality pilot. My own venture, receva.co.za.",
+    "status": "Live pilot on a real business line",
+    "statusKind": "live",
+    "oneline": "An AI receptionist that answers a real business line in English and Afrikaans, day and night.",
+    "line": "An AI receptionist answers a real business line in English and Afrikaans.",
+    "metric": "24/7 on a live line",
+    "problem": "During the service rush, calls rang out unanswered. Bookings and takeaway orders were lost to a busy signal.",
+    "did": "I built it on Retell and Twilio with an SA English and Afrikaans voice. It takes bookings and orders, n8n writes each one into Supabase over webhook, and the branch dashboard shows the day.",
+    "proofNote": "The pilot line belongs to a client, so the number stays private. Call recordings and transcripts can be walked through on request.",
+    "before": "Service rush: calls ringing out unanswered, bookings and takeaway orders lost to a busy signal.",
+    "after": "An AI receptionist answers around the clock in a real SA accent (English and Afrikaans), takes bookings and food orders, and writes each one into the branch dashboard with a placed tick.",
+    "how": [
+      "A Twilio number routes the inbound call to a Retell voice agent running an SA English and Afrikaans voice.",
+      "The agent runs the booking or order script and confirms the detail back to the caller in the conversation.",
+      "n8n receives the structured call result over webhook and writes the booking or order into Supabase.",
+      "The branch dashboard shows calls, orders, bookings and escalations for the day.",
+      "Every call is recorded and transcribed, so any disputed order can be checked against what was actually said."
+    ],
+    "hours": "Reception hours recovered (baselining in pilot)",
+    "value": "Recovered bookings and orders (measured in pilot)",
+    "risk": "Calls answered around the clock on the pilot line. Every call recorded, transcribed and reviewable. Escalation path to a human for anything the agent should not decide. Client identity kept off this page.",
+    "stack": [
+      "Retell",
+      "Twilio",
+      "n8n",
+      "Supabase",
+      "ElevenLabs SA voice"
+    ],
+    "links": [
+      {
+        "label": "receva.co.za",
+        "url": "https://receva.co.za"
+      }
+    ]
+  },
+  {
+    "slug": "receva-demos",
+    "name": "Receva: 6 Live AI Demo Desks",
+    "org": "Receva",
+    "dept": "receva.co.za. Per prospect demo pages that genuinely run AI.",
+    "status": "6 live on receva.co.za, generated from a library of 65",
+    "statusKind": "live",
+    "oneline": "Per prospect reception desks where a stranger can talk to the AI right now, no signup.",
+    "line": "Demo desks where a stranger can talk to the AI right now.",
+    "metric": "6 live, 65 generated",
+    "problem": "Cold outreach had nothing interactive to show. Just a claim in an email and nothing for the prospect to click.",
+    "did": "I generate a per prospect page from their public business detail, and the Claude API answers real caller questions live in that business's voice. Six are deployed from a library of sixty five.",
+    "proofNote": "Nothing is scripted. Ask the desk anything and the answer is generated live.",
+    "before": "Cold outreach with nothing interactive to show a prospect: a claim in an email and nothing to click.",
+    "after": "6 demo desks live on receva.co.za, generated from a local library of 65 per prospect pages across accounting, law, recruitment, dental and property. Each live desk runs a real AI receptionist: the visitor types a genuine caller question and the Claude API answers in that business's voice, with a live activity panel showing calls, bookings and requests as they land.",
+    "how": [
+      "Each prospect gets a static demo page generated from their public business detail, so the page speaks their language before they ever reply.",
+      "The visitor asks the desk a real caller question in the chat box. The Claude API answers it live. Nothing is scripted, staged or pre-baked.",
+      "The desk holds context across turns, so a follow up question lands the way a real reception conversation would.",
+      "A browser web call option puts the visitor on a live voice conversation with the same agent.",
+      "An activity panel on the page shows calls, bookings and appointment requests, which is what the buyer actually cares about.",
+      "65 pages sit generated and ready in the outreach library. Only the 6 above are deployed, so the number claimed on this card is the number a stranger can open."
+    ],
+    "hours": "Sales asset (not hours)",
+    "value": "Pipeline asset: every outreach send carries a working demo",
+    "risk": "Genuinely runs on AI, never scripted. Rate limited. No visitor account, no signup and no personal data collected to use a desk.",
+    "stack": [
+      "Astro",
+      "Vercel",
+      "Claude API",
+      "TypeScript"
+    ],
+    "demo": {
+      "label": "Try the live AI receptionist desk",
+      "url": "https://receva.co.za/demos/table-bay-accounting.html"
+    },
+    "links": [
+      {
+        "label": "Try the law desk",
+        "url": "https://receva.co.za/demos/cape-chambers-law.html"
+      },
+      {
+        "label": "Try the dental desk",
+        "url": "https://receva.co.za/demos/brightbay-dental.html"
+      },
+      {
+        "label": "Try the recruitment desk",
+        "url": "https://receva.co.za/demos/atlantic-talent-recruitment.html"
+      },
+      {
+        "label": "receva.co.za",
+        "url": "https://receva.co.za"
+      }
+    ]
+  },
+  {
+    "slug": "applyforge",
+    "name": "ApplyForge: AI Job Application Engine",
+    "org": "Personal",
+    "dept": "Personal build, end to end. Next.js 16, Claude API, Docker, CI gated.",
+    "status": "Built 2026, containerized and CI gated",
+    "statusKind": "built",
+    "oneline": "Scrapes job boards on a scheduled run, scores every listing against my CV, and writes the application pack. Gated by 121 tests and a CI pipeline.",
+    "line": "Scrapes job boards, scores every listing against my CV, writes the pack.",
+    "metric": "212 tests, CI gated",
+    "problem": "Applying by hand meant reading every spec and rewriting my CV and cover letter each time. Hours per application, and the scoring had no tests.",
+    "did": "I built it in Next.js with structured Claude outputs, so every score is comparable. It ships in a multi stage Docker image, with 212 unit tests and a GitHub Actions pipeline gating typecheck, lint, tests and build.",
+    "proofNote": "Proof pages show real scoring output for all 21 listings, plus the gates run locally with their real exit codes.",
+    "before": "Applying for roles by hand: find listings, read specs, tailor a CV and cover letter for every single one. Hours per application. And a scoring engine with no tests, where a wrong score would have looked exactly like a right one.",
+    "after": "Scrapes live job boards on a scheduled run, scores every listing against my CV with structured Claude outputs, and generates a tailored CV and cover letter pack per match. Hours per application down to minutes. Now gated: a 121 test suite over the ingestion, scoring, validation and storage logic, plus a GitHub Actions pipeline that runs typecheck, lint, tests and a production build on every push, then builds the Docker image and boots the container to confirm it serves.",
+    "how": [
+      "A scheduled scan, run through my agent rig, pulls live listings off the job boards.",
+      "Each listing is scored against my CV using structured Claude outputs, so the score is consistent, comparable and reviewable rather than a paragraph of opinion.",
+      "Matches above the threshold generate a tailored CV and cover letter pack.",
+      "The whole app ships in a multi stage Docker image (node:22-alpine, non root user, secrets and data excluded), verified end to end locally with a clean build and a smoke test on both the UI and the API.",
+      "It argues against me. Unmet requirements are marked unmet, the gaps are written in plain language, and the top score on my own database is 60 out of 100. A scorer I could not trust to tell me no would not be worth running.",
+      "Tested. 121 unit tests over the ingestion, scoring, validation and storage logic, with the network and the model API mocked at the module boundary so the suite runs offline in under a second. Writing it hardened four behaviours: model scores are clamped to the published range, URLs are canonicalised before the duplicate check so one advert cannot be scored twice, model supplied list indices are validated before they are used, and the store fails safe on a malformed data file.",
+      "Gated. GitHub Actions installs from the lockfile, then runs typecheck, lint, tests and a production build. A second dependent job builds the multi stage Docker image with layer caching and boots the container to confirm it serves HTTP 200 as a non root user, because an image that builds is not the same as an image that runs."
+    ],
+    "hours": "Personal hours (not tracked)",
+    "value": "Proof of full stack AI product work, tested and CI gated",
+    "risk": "My own data only. Structured outputs keep scoring consistent and reviewable. Data mounted read only, secrets excluded from the image. The test suite makes no network call and never touches the real data file. The CI workflow builds the Docker image but never publishes it.",
+    "stack": [
+      "Next.js 16",
+      "TypeScript",
+      "React",
+      "Claude API",
+      "Docker",
+      "Vitest",
+      "GitHub Actions",
+      "ESLint"
+    ],
+    "demo": {
+      "label": "See the real scoring output, all 21 listings",
+      "url": "proof/applyforge.html"
+    },
+    "links": [
+      {
+        "label": "The CI gates and their real output",
+        "url": "proof/applyforge-quality.html"
+      }
+    ],
+    "access": "The scoring proof page is a static capture of the live API: every score, every requirement check and the generated cover letter, with company names reduced to a sector descriptor and personal contact detail and pay expectations removed, each marked in place. The gates page is generated by running the real commands and pasting back their exit codes. The test suite and the CI workflow are committed locally and not yet pushed, so no passing run on GitHub is claimed and there is no green badge to show yet. A source link goes here once the repository is republished from cleaned history."
+  },
+  {
+    "slug": "agent-pipeline",
+    "name": "Agent Pipeline: Multi Agent Document Triage",
+    "org": "Personal",
+    "dept": "Personal build, agentic AI engineering. Python, LangGraph, Claude API.",
+    "status": "Built 2026-07-30, verified on a live run over 26 documents",
+    "statusKind": "built",
+    "oneline": "Five agents sort a pile of documents, decide each one, and log exactly why.",
+    "line": "Five agents sort a pile of documents and log exactly why.",
+    "metric": "26 of 26 routed correctly",
+    "problem": "Agentic AI is easy to claim on a CV and hard to prove. Job specs ask for LangGraph and I had nothing runnable to point at.",
+    "did": "I built a LangGraph state graph: four specialist agents (classifier, extractor, validator, router) under a supervisor that owns retry, escalation and degradation. Two agents call the model, two are pure Python rules.",
+    "proofNote": "The proof page comes straight from the run files. All 26 documents are synthetic, so accuracy is on data of that shape.",
+    "before": "Agentic AI is the easiest thing on a CV to claim and the hardest to prove. Job specs name LangGraph, CrewAI and AutoGen by name, and workflow tooling plus good prompts is not the same thing as an orchestration framework. I had no runnable multi agent build to point at.",
+    "after": "A LangGraph state graph with four specialist agents (classifier, extractor, validator, router) and a supervisor that owns retry with backoff, escalation and graceful degradation. Verified on a live run against Claude over 26 synthetic property and finance documents: 26 of 26 routing decisions and 25 of 25 document types matched the ground truth manifest, across 50 model calls and 301 audit events. 267 unit tests cover the rules and the routing and never touch the network.",
+    "how": [
+      "Supervisor and workers. Every worker has exactly one outgoing edge, back to the supervisor, and the supervisor owns the only conditional edge, so there is exactly one place in the system where a document's path is decided. That cycle is what makes retry, skip and escalation possible without copying retry logic into every agent.",
+      "Two agents read, two agents decide. The classifier and the extractor call the model, because reading prose is what a language model is for. The validator and the router are pure Python, because a finance manager asking why an invoice was rejected should get a rule code and a number, not a model's opinion. It also makes every routing decision unit testable with no network call.",
+      "Structured output, then checked again. Model calls are constrained by a JSON schema, and the payload is validated a second time in Python, because a schema cannot express that a confidence must sit between zero and one. A payload that fails is retried with the specific problem fed back as a correction hint.",
+      "A schema that lets the model say not stated. Every field is nullable on the wire and requiredness is enforced as a business rule, because the first revision that did it the other way round gave the model no way to report a missing due date, so it supplied one. A schema that cannot express absence converts a missing value into a fabricated one.",
+      "Routing precedence carries the safety argument. Degraded, unclassified and low confidence documents are all checked before the reject test, so the pipeline only rejects on data it actually trusts. A degraded document can never auto approve.",
+      "Auditable by default. Every dispatch, retry, escalation, rule finding and decision is a JSON line with a timestamp, document id, node and attempt number, and every tunable number lives in one policy file with a version stamped onto each decision."
+    ],
+    "hours": "Skill proof (not hours saved)",
+    "value": "Executable proof of multi agent orchestration in Python",
+    "risk": "All 26 input documents are synthetic and every address in them is on a .example domain. No real company, person, supplier, tenant or deal anywhere in the project. Accuracy is measured against that synthetic corpus, written alongside the rules, so it shows the pipeline does what it says on data of this shape and is not a claim about real supplier invoices. Self reported model confidence is used as a triage signal with a floor, not as a probability. LangGraph and the Anthropic SDK are genuinely used; LangChain chat wrappers, CrewAI and AutoGen are not installed, not imported and not claimed.",
+    "stack": [
+      "Python",
+      "LangGraph",
+      "Claude API",
+      "JSON Schema",
+      "pytest"
+    ],
+    "demo": {
+      "label": "See all 26 documents, four runs and the raw audit trail",
+      "url": "proof/agent-pipeline.html"
+    },
+    "access": "Local repository, committed and not published yet, so no source link is claimed here. The proof page above is generated straight from the committed run files, so every number on it comes out of the run rather than being typed by hand. Code walkthrough and a live run available on request."
+  },
+  {
+    "slug": "dealflow-sql",
+    "name": "DealFlow SQL: Property Deals Database",
+    "org": "Personal",
+    "dept": "Personal build, data engineering practice. PostgreSQL 16 in Docker.",
+    "status": "Built 2026-07-29, reproducible in one command",
+    "statusKind": "built",
+    "oneline": "A relational property deals database with 10 analysis queries, reproducible in one command.",
+    "line": "A 1.16 million row property deals warehouse, rebuilt in one command.",
+    "metric": "1.16M fact rows",
+    "problem": "The source system keeps a status column and no history. Nobody can answer what fraction of deals reach offer, because yesterday's status was overwritten today.",
+    "did": "I built a star schema warehouse on PostgreSQL: two Type 2 slowly changing dimensions so history reports as it was, 84 monthly partitions on the event fact, 51 data quality assertions, and six measured performance case studies.",
+    "proofNote": "Public repo. One command rebuilds the whole warehouse, and every query output, plan and buffer count is committed, so the numbers can be checked.",
+    "before": "SQL knowledge without public proof: nothing to show a hiring manager beyond a claim on a CV.",
+    "after": "A PostgreSQL database of brokers, properties and deals running in Docker. Schema with primary and foreign keys, CSV staging loads, and 10 analysis queries from joins and GROUP BY with HAVING through subqueries and window functions, each committed with its real output.",
+    "how": [
+      "One command starts PostgreSQL 16 in Docker, applies the schema, loads the data and runs every query with the SQL echoed.",
+      "Schema. Brokers and properties as lookup tables, deals as the fact table, with foreign keys, a unique message ID dedupe key and check constraints on status and value.",
+      "Load. Each CSV lands in a temporary staging table of text columns, then inserts into the real tables resolving foreign keys by join, all inside one transaction. Re-running is idempotent.",
+      "Query. Ten queries in escalating difficulty: WHERE and ORDER BY, inner joins, a LEFT JOIN with GROUP BY, HAVING, date bucketing, a NOT EXISTS subquery, and RANK with a windowed percentage share.",
+      "Evidence. Every query's real output is committed alongside it, so the results can be checked rather than believed."
+    ],
+    "hours": "Personal hours (not tracked)",
+    "value": "Executable proof of SQL and relational schema design",
+    "risk": "Synthetic seed data only. No real broker, client or deal data anywhere in the repo, and no employer data was used to build it.",
+    "stack": [
+      "PostgreSQL",
+      "SQL",
+      "Docker",
+      "Python"
+    ],
+    "demo": {
+      "label": "See the 10 queries and their real output",
+      "url": "proof/dealflow-sql.html"
+    },
+    "links": [
+      {
+        "label": "Source on GitHub",
+        "url": "https://github.com/ruan-grobler/dealflow-sql"
+      }
+    ],
+    "access": "Public repo, one command to run. Every query and its real output is committed, so the results can be checked rather than believed."
+  },
+  {
+    "slug": "ai-rig",
+    "name": "AI Engineering Rig (Claude Code)",
+    "org": "Personal",
+    "dept": "The delivery system behind everything else on this page.",
+    "status": "Built, with scheduled agents running on my own machine",
+    "statusKind": "built",
+    "oneline": "Custom subagents, MCP servers, hooks and scheduled agents that work while I sleep.",
+    "line": "Custom subagents, MCP servers and hooks that keep building while I sleep.",
+    "metric": "",
+    "problem": "One person working sequentially by hand. Build, then research, then monitor, then apply, one long thread at a time.",
+    "did": "I built a rig of custom subagents, MCP servers, hooks and scheduled agents. Agents run research and verification in parallel, hooks enforce my standing rules, and independent agents check the work before it reaches me.",
+    "proofNote": "Local setup, nothing to link. The proof pages on this site were generated by it, and the config and run logs are on disk.",
+    "before": "One developer working sequentially by hand: build, research, monitor, apply.",
+    "after": "A rig of custom subagents, MCP servers, hooks and scheduled agents that works overnight: morning work briefs, automated research notes, vault maintenance, and multi agent build workflows with adversarial verification. Job board scanning with CV scoring runs through the same rig on demand. It is how one person ships like a team.",
+    "how": [
+      "Custom subagents take research, verification and build tasks in parallel instead of one long sequential thread.",
+      "MCP servers give those agents live access to documentation, browsers and workflow tools rather than stale training data.",
+      "Hooks enforce standing rules automatically on every session, so quality does not depend on me remembering.",
+      "Scheduled agents run unattended overnight: research notes, vault maintenance, morning work briefs.",
+      "Adversarial verification. Independent agents check the work before it reaches me, which is why the numbers on this page survive scrutiny."
+    ],
+    "hours": "Compounding (est)",
+    "value": "Force multiplier on every build on this page",
+    "risk": "Human sign off on anything that leaves the machine. Nothing sends, publishes or deploys itself.",
+    "stack": [
+      "Claude Code",
+      "Claude API",
+      "MCP",
+      "Python",
+      "TypeScript"
+    ],
+    "verify": "The rig is a local setup, so there is nothing to link to. What is checkable: the openable proof pages on this page were generated by it, the agent config files, hooks and scheduled agent definitions can be walked through on a shared screen, and the run logs behind the overnight scans exist on disk."
+  },
+  {
+    "slug": "dealflow-crm",
+    "name": "DealFlow CRM (Dataverse PoC)",
+    "org": "Personal",
+    "dept": "Developer environment PoC. 100 percent synthetic data.",
+    "status": "Spec and seed data ready, build starting",
+    "statusKind": "kit",
+    "oneline": "A model driven Dataverse rebuild of the deal intake domain. Specced, seeded, build starting.",
+    "line": "A Dataverse rebuild of the deal intake domain. Specced and seeded.",
+    "metric": "",
+    "problem": "Dataverse is the platform depth most Power Platform people skip. They stop at lists and never learn tables, relationships, security roles or model driven apps.",
+    "did": "I specced the build and seeded synthetic data: Broker, Property, Deal and Intake Log tables, an alternate key for dedupe, business rules, two security roles with column security, and a model driven app.",
+    "proofNote": "Nothing is built yet, so nothing to open and no value claimed. The spec, three runbooks and seed CSVs exist and can be shared.",
+    "before": "Dataverse is the platform depth most Power Platform people skip: they stop at lists and never learn tables, relationships, security roles or model driven apps.",
+    "after": "A specced model driven Dataverse build: Broker, Property, Deal and Intake Log tables, autonumbered deals, alternate key dedupe, business rules, two security roles with column security, and two flows.",
+    "how": [
+      "Solution and publisher first, so every component is portable between environments rather than trapped in the default solution.",
+      "Four tables: Broker, Property, Deal and Intake Log, with proper relationships, autonumbered deals and an alternate key for dedupe.",
+      "Business rules for required fields and status transitions, enforced at the platform level rather than inside a flow.",
+      "Two security roles plus a column security profile on deal value, so the sensitive column is invisible to the wrong role.",
+      "A model driven app with four views, two charts and a pipeline dashboard, a canvas app for quick capture, plus two Power Automate flows."
+    ],
+    "hours": "Skill proof (not hours)",
+    "value": "R0 claimed until built and demoed",
+    "risk": "All data synthetic, nothing copied from work. Definition of done includes screenshots and a recorded walkthrough, and no value is claimed on this page until that exists.",
+    "stack": [
+      "Dataverse",
+      "Power Apps (model driven and canvas)",
+      "Power Automate"
+    ],
+    "verify": "Nothing is built yet, so there is deliberately nothing to open and no value claimed. What is checkable today: the written specification, the three runbooks and the synthetic seed CSV files, all of which exist on disk and can be shared on request. A Dataverse environment needs a work or school tenant, which is why the build has not run on this machine."
+  }
+]

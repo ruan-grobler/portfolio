@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent pipeline. Real multi agent run output. Ruan Grobler</title>
+<meta name="description" content="Proof page. A LangGraph multi agent document triage pipeline scored over 26 synthetic documents, with the raw output of four real runs including live model calls, a scripted fault injection run and a real network fault.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101214'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Georgia,serif' fill='%232cccc8' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  /* Palette mirrors impact-portfolio/index.html :root exactly. */
+  :root{
+    color-scheme:dark;
+    --bg:#101214; --card:#17191c; --card2:#1d2024; --border:#272b30; --border2:#343a41;
+    --ink:#ece5d3; --soft:#b8b2a4; --mut:#7d7a70; --teal:#2cccc8;
+    --amber:#e0a83c; --red:#e06c5c; --green:#4fc383; --max:980px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    padding-bottom:70px;overflow-x:hidden}
+  a{color:var(--teal)}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:34px 24px 60px}
+  .proofbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;
+    padding:9px 17px;font-size:13.5px;font-weight:600;text-decoration:none;
+    border:1px solid var(--border2);color:var(--ink);background:var(--card);
+    transition:border-color .15s,transform .15s}
+  .btn:hover{transform:translateY(-1px);border-color:var(--teal)}
+  .verified{font-size:12px;color:var(--mut);margin-left:auto}
+  .verified b{color:var(--green);font-weight:700}
+  .eyebrow{color:var(--teal);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,'Times New Roman',serif;letter-spacing:.2px;
+    font-size:38px;font-weight:400;line-height:1.08;margin:0 0 10px}
+  .lede{font-size:16px;color:var(--soft);margin:0 0 22px;max-width:74ch}
+  .lede b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px;padding:0;list-style:none}
+  .meta li{font-size:12px;border:1px solid var(--border2);color:var(--soft);
+    border-radius:999px;padding:4px 11px;line-height:1.4;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .note{font-size:13.5px;color:var(--soft);border-left:3px solid var(--teal);
+    padding:8px 0 8px 14px;margin:0 0 26px;max-width:76ch}
+  .note strong{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:20px;margin:0 0 14px}
+  h2{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:var(--mut);
+    margin:0 0 8px;font-weight:700}
+  h2 .t{color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600;font-size:17px}
+  .purpose{margin:0 0 14px;color:var(--soft);font-size:13.5px;max-width:76ch}
+  pre{margin:0;padding:15px;background:var(--card2);border:1px solid var(--border);
+    border-radius:10px;overflow-x:auto;
+    font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--soft)}
+  .tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card2)}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);
+    vertical-align:top}
+  th{font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--mut);
+    font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;white-space:nowrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .small{font-size:11.5px}
+  .mut{color:var(--mut)}
+  .dec{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .dec.ok{background:rgba(79,195,131,.13);color:var(--green)}
+  .dec.warn{background:rgba(224,168,60,.13);color:var(--amber)}
+  .dec.bad{background:rgba(224,108,92,.13);color:var(--red)}
+  footer{color:var(--mut);font-size:12px;line-height:1.7;margin-top:26px;max-width:76ch}
+  @media(max-width:720px){
+    .wrap{padding:22px 16px 50px}
+    h1{font-size:29px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="proofbar">
+    <a class="btn" href="../index.html">&#8592;&nbsp; Back to the portfolio</a>
+    <span class="verified"><b>Real run output.</b> Generated from the committed evidence files, not typed by hand.</span>
+  </div>
+
+  <p class="eyebrow">Proof page. Multi agent orchestration.</p>
+  <h1>A multi agent document triage pipeline, and the runs that scored it.</h1>
+  <p class="lede">Four agents (classifier, extractor, validator, router) plus a supervisor that owns
+  retry, escalation and graceful degradation, wired as a <b>LangGraph</b> state graph in Python. Every
+  document ends with a decision, a written reason and an audit trail. The tables below are read
+  directly out of the committed run files, so what you see is what the run produced.</p>
+
+  <ul class="meta">
+    <li>mode: live</li><li>anthropic:claude-opus-5:effort=low</li><li>26 documents</li><li>50 model calls</li><li>84,258 input tokens</li><li>5,672 output tokens</li><li>301 audit events</li><li>266.32s wall clock</li><li>retries 0, degraded 0</li><li>policy version 2026.07.1</li>
+  </ul>
+
+  <p class="note"><strong>What is real and what is not.</strong> The pipeline, the model calls and every
+  number on this page are real. The 26 input documents are <strong>synthetic</strong>, generated by a
+  script in the repo, and every email address in them is on a <code>.example</code> domain. There is no
+  real company, person, supplier, tenant or deal anywhere in the project. Accuracy figures are measured
+  against that synthetic corpus, which was written alongside the rules, so they show the pipeline does
+  what it says on data of this shape. They are not a claim about real supplier invoices.</p>
+
+  <p class="note"><strong>Which framework, stated plainly.</strong> LangGraph is genuinely imported and
+  used (<code>StateGraph</code>, a typed state schema, conditional edges and a cyclic edge back to the
+  supervisor). Model calls go straight to the Anthropic SDK with a JSON schema structured output
+  contract. LangChain chat wrappers are <strong>not</strong> used, and CrewAI and AutoGen are not
+  installed, not imported and not claimed.</p>
+
+  <div class="card">
+    <h2>Table 1 <span class="t">Four runs, scored against the manifest</span></h2>
+    <p class="purpose">The live and the offline run reach the same 13 / 9 / 4 split and give the same
+    stated reason on every document, because the rules and the routing are pure functions of the
+    extracted fields. The model can only influence classification and extraction. The last row is an
+    earlier revision kept on purpose: the provider connection dropped mid run, so the degradation path
+    fired on a real fault rather than a scripted one. It disagrees with the manifest by design, because
+    11 documents were marked degraded and sent to a person instead of being auto approved on data the
+    pipeline could not read.</p>
+    <div class="tw"><table>
+      <thead><tr>
+        <th>Run</th><th>Mode</th><th>Model</th><th class="num">Docs</th>
+        <th class="num">Approve / review / reject</th><th class="num">Retries / degraded</th>
+        <th class="num">Agreement</th><th class="num">Wall clock</th>
+      </tr></thead>
+      <tbody>
+<tr><td>Live run. Real model calls.<div class="small mut mono">evidence/live-run/</div></td><td class="mono">live</td><td class="mono small">anthropic:claude-opus-5:effort=low</td><td class="num">26</td><td class="num">13 / 9 / 4</td><td class="num">0 / 0</td><td class="num">100.0%</td><td class="num">266.32s</td></tr>
+<tr><td>Offline run. Deterministic stub model.<div class="small mut mono">evidence/offline-run/</div></td><td class="mono">stubbed</td><td class="mono small">stub:label-parser</td><td class="num">26</td><td class="num">13 / 9 / 4</td><td class="num">0 / 0</td><td class="num">100.0%</td><td class="num">0.08s</td></tr>
+<tr><td>Fault injection run. Scripted failures.<div class="small mut mono">evidence/fault-injection-run/</div></td><td class="mono">stubbed</td><td class="mono small">faults(stub:label-parser)</td><td class="num">26</td><td class="num">12 / 10 / 4</td><td class="num">3 / 1</td><td class="num">100.0%</td><td class="num">2.09s</td></tr>
+<tr><td>Earlier revision. A real network fault.<div class="small mut mono">evidence/live-network-degradation/</div></td><td class="mono">live</td><td class="mono small">anthropic:claude-opus-5:effort=low</td><td class="num">26</td><td class="num">7 / 16 / 3</td><td class="num">22 / 11</td><td class="num">73.1%</td><td class="num">306.68s</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2>Table 2 <span class="t">Every document in the live run</span></h2>
+    <p class="purpose">All 26 documents from the live run: what the classifier decided, what the
+    extractor reported for its own confidence, which business rules fired, and the routing decision
+    against the expected one from the ground truth manifest. Type accuracy is scored over 25, not 26,
+    because D25 is deliberately ambiguous and the manifest asserts no single correct type for it.</p>
+    <div class="tw"><table>
+      <thead><tr>
+        <th>Doc</th><th>Hard case</th><th>Type</th><th class="num">Type conf</th>
+        <th class="num">Extract conf</th><th>Decision</th><th>Expected</th><th>Rule codes</th>
+      </tr></thead>
+      <tbody>
+<tr><td class="mono">D01</td><td>clean baseline</td><td class="mono">invoice</td><td class="num">0.98</td><td class="num">0.97</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D02</td><td>due date stated as payment terms, not a date</td><td class="mono">invoice</td><td class="num">0.97</td><td class="num">0.97</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D03</td><td>long form dates</td><td class="mono">invoice</td><td class="num">0.98</td><td class="num">0.95</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D04</td><td>total does not equal subtotal plus tax</td><td class="mono">invoice</td><td class="num">0.98</td><td class="num">0.82</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">INV_TOTAL_MISMATCH</td></tr>
+<tr><td class="mono">D05</td><td>above the auto approve limit</td><td class="mono">invoice</td><td class="num">0.98</td><td class="num">0.96</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">INV_ABOVE_AUTO_APPROVE_LIMIT</td></tr>
+<tr><td class="mono">D06</td><td>required field absent (no due date, no terms)</td><td class="mono">invoice</td><td class="num">0.97</td><td class="num">0.95</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">FIELD_MISSING</td></tr>
+<tr><td class="mono">D07</td><td>duplicate submission of an invoice already in this batch</td><td class="mono">invoice</td><td class="num">0.95</td><td class="num">0.97</td><td><span class="dec bad">reject</span></td><td class="mono">reject &#10003;</td><td class="mono small">DUPLICATE_SUBMISSION</td></tr>
+<tr><td class="mono">D08</td><td>due date falls before the invoice date</td><td class="mono">invoice</td><td class="num">0.96</td><td class="num">0.9</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">INV_DUE_BEFORE_ISSUE</td></tr>
+<tr><td class="mono">D09</td><td>negative amounts (credit note in a payables only queue)</td><td class="mono">invoice</td><td class="num">0.9</td><td class="num">0.93</td><td><span class="dec bad">reject</span></td><td class="mono">reject &#10003;</td><td class="mono small">INV_AMOUNT_NOT_POSITIVE, INV_AMOUNT_NOT_POSITIVE, INV_AMOUNT_NOT_POSITIVE</td></tr>
+<tr><td class="mono">D10</td><td>numeric dates in day/month/year order</td><td class="mono">invoice</td><td class="num">0.98</td><td class="num">0.95</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D11</td><td>clean baseline</td><td class="mono">lease_application</td><td class="num">0.98</td><td class="num">0.98</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D12</td><td>affordability inside the ceiling but tight, warning only</td><td class="mono">lease_application</td><td class="num">0.97</td><td class="num">0.95</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">LSE_AFFORDABILITY_TIGHT</td></tr>
+<tr><td class="mono">D13</td><td>value out of policy range (rent to income far above ceiling)</td><td class="mono">lease_application</td><td class="num">0.97</td><td class="num">0.98</td><td><span class="dec bad">reject</span></td><td class="mono">reject &#10003;</td><td class="mono small">LSE_AFFORDABILITY_BREACH</td></tr>
+<tr><td class="mono">D14</td><td>required field absent (income not stated)</td><td class="mono">lease_application</td><td class="num">0.93</td><td class="num">0.95</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">FIELD_MISSING</td></tr>
+<tr><td class="mono">D15</td><td>clean, longer term</td><td class="mono">lease_application</td><td class="num">0.97</td><td class="num">0.97</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D16</td><td>self employed, income proof warning, still clears</td><td class="mono">lease_application</td><td class="num">0.96</td><td class="num">0.97</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">LSE_INCOME_PROOF_REQUIRED</td></tr>
+<tr><td class="mono">D17</td><td>affordability lands exactly on the 33 percent ceiling, boundary case</td><td class="mono">lease_application</td><td class="num">0.97</td><td class="num">0.98</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">LSE_AFFORDABILITY_TIGHT</td></tr>
+<tr><td class="mono">D18</td><td>transient extractor failure, recovered by one retry with backoff</td><td class="mono">lease_application</td><td class="num">0.96</td><td class="num">0.97</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">LSE_INCOME_PROOF_REQUIRED</td></tr>
+<tr><td class="mono">D19</td><td>clean baseline</td><td class="mono">deal_sheet</td><td class="num">0.98</td><td class="num">0.98</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D20</td><td>commission rate outside the mandated band</td><td class="mono">deal_sheet</td><td class="num">0.97</td><td class="num">0.96</td><td><span class="dec bad">reject</span></td><td class="mono">reject &#10003;</td><td class="mono small">DEAL_COMMISSION_RATE_OUT_OF_BAND</td></tr>
+<tr><td class="mono">D21</td><td>commission amount inconsistent with the stated rate</td><td class="mono">deal_sheet</td><td class="num">0.98</td><td class="num">0.79</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">DEAL_COMMISSION_MISMATCH</td></tr>
+<tr><td class="mono">D22</td><td>transfer date falls before the offer date</td><td class="mono">deal_sheet</td><td class="num">0.97</td><td class="num">0.93</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">DEAL_TRANSFER_BEFORE_OFFER</td></tr>
+<tr><td class="mono">D23</td><td>transfer far in the future, warning only</td><td class="mono">deal_sheet</td><td class="num">0.97</td><td class="num">0.98</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">DEAL_TRANSFER_FAR_OUT</td></tr>
+<tr><td class="mono">D24</td><td>persistent extractor failure, escalated to a degraded run</td><td class="mono">deal_sheet</td><td class="num">0.98</td><td class="num">0.95</td><td><span class="dec ok">auto_approve</span></td><td class="mono">auto_approve &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D25</td><td>ambiguous type: references an invoice and a lease renewal, complete fields for neither</td><td class="mono">unknown</td><td class="num">0.92</td><td class="num">None</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">none</td></tr>
+<tr><td class="mono">D26</td><td>out of scope document type (maintenance job card)</td><td class="mono">unknown</td><td class="num">0.95</td><td class="num">None</td><td><span class="dec warn">human_review</span></td><td class="mono">human_review &#10003;</td><td class="mono small">none</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2>Table 3 <span class="t">The raw audit trail for one document</span></h2>
+    <p class="purpose">D07 is a duplicate of an invoice already seen earlier in the same batch. Below is
+    every audit line the run wrote for it, unedited from <code>evidence/live-run/events.jsonl</code>
+    with only the absolute file path shortened. Read top to bottom it is the whole control flow: the
+    supervisor dispatches each stage, the classifier and extractor call the model and report their own
+    confidence, the validator applies the rules with no model call and finds the duplicate as a fatal
+    finding, and the router turns that into a decision carrying a policy version.</p>
+    <pre>{&quot;ts&quot;: &quot;2026-07-30T11:09:01.168+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;supervisor&quot;, &quot;event&quot;: &quot;dispatch&quot;, &quot;detail&quot;: {&quot;target&quot;: &quot;classify&quot;, &quot;delay_s&quot;: 0.0, &quot;note&quot;: &quot;dispatching classify&quot;, &quot;attempts&quot;: {}, &quot;degraded&quot;: false}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:01.168+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;classifier&quot;, &quot;event&quot;: &quot;start&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;model&quot;: &quot;anthropic:claude-opus-5:effort=low&quot;}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:05.456+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;classifier&quot;, &quot;event&quot;: &quot;classified&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;doc_type&quot;: &quot;invoice&quot;, &quot;confidence&quot;: 0.95, &quot;reason&quot;: &quot;The email embeds a full tax invoice with invoice number INV-2201, dates, line item, VAT and total due of R8 050.00.&quot;, &quot;usage&quot;: {&quot;model&quot;: &quot;claude-opus-5&quot;, &quot;input_tokens&quot;: 981, &quot;output_tokens&quot;: 71, &quot;latency_ms&quot;: 4287}}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:05.460+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;supervisor&quot;, &quot;event&quot;: &quot;dispatch&quot;, &quot;detail&quot;: {&quot;target&quot;: &quot;extract&quot;, &quot;delay_s&quot;: 0.0, &quot;note&quot;: &quot;dispatching extract&quot;, &quot;attempts&quot;: {&quot;classify&quot;: 1}, &quot;degraded&quot;: false}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:05.464+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;extractor&quot;, &quot;event&quot;: &quot;start&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;doc_type&quot;: &quot;invoice&quot;, &quot;model&quot;: &quot;anthropic:claude-opus-5:effort=low&quot;}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.847+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;extractor&quot;, &quot;event&quot;: &quot;extracted&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;doc_type&quot;: &quot;invoice&quot;, &quot;confidence&quot;: 0.97, &quot;fields_populated&quot;: 11, &quot;fields_requested&quot;: 11, &quot;usage&quot;: {&quot;model&quot;: &quot;claude-opus-5&quot;, &quot;input_tokens&quot;: 2734, &quot;output_tokens&quot;: 166, &quot;latency_ms&quot;: 5382}}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.849+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;supervisor&quot;, &quot;event&quot;: &quot;dispatch&quot;, &quot;detail&quot;: {&quot;target&quot;: &quot;validate&quot;, &quot;delay_s&quot;: 0.0, &quot;note&quot;: &quot;dispatching validate&quot;, &quot;attempts&quot;: {&quot;classify&quot;: 1, &quot;extract&quot;: 1}, &quot;degraded&quot;: false}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.850+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;validator&quot;, &quot;event&quot;: &quot;start&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;doc_type&quot;: &quot;invoice&quot;}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.850+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;validator&quot;, &quot;event&quot;: &quot;validated&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;passed&quot;: false, &quot;severity_counts&quot;: {&quot;fatal&quot;: 1}, &quot;findings&quot;: [{&quot;code&quot;: &quot;DUPLICATE_SUBMISSION&quot;, &quot;severity&quot;: &quot;fatal&quot;, &quot;message&quot;: &quot;Same business key as document D01, already processed in this run.&quot;, &quot;field&quot;: null}], &quot;policy_version&quot;: &quot;2026.07.1&quot;}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.850+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;supervisor&quot;, &quot;event&quot;: &quot;dispatch&quot;, &quot;detail&quot;: {&quot;target&quot;: &quot;route&quot;, &quot;delay_s&quot;: 0.0, &quot;note&quot;: &quot;dispatching route&quot;, &quot;attempts&quot;: {&quot;classify&quot;: 1, &quot;extract&quot;: 1, &quot;validate&quot;: 1}, &quot;degraded&quot;: false}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.851+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;router&quot;, &quot;event&quot;: &quot;routed&quot;, &quot;attempt&quot;: 1, &quot;detail&quot;: {&quot;decision&quot;: &quot;reject&quot;, &quot;reasons&quot;: [&quot;DUPLICATE_SUBMISSION: Same business key as document D01, already processed in this run.&quot;], &quot;policy_version&quot;: &quot;2026.07.1&quot;, &quot;confidence&quot;: 0.95, &quot;degraded&quot;: false}}
+{&quot;ts&quot;: &quot;2026-07-30T11:09:10.851+00:00&quot;, &quot;run_id&quot;: &quot;live-final-verified&quot;, &quot;doc_id&quot;: &quot;D07&quot;, &quot;node&quot;: &quot;supervisor&quot;, &quot;event&quot;: &quot;finish&quot;, &quot;detail&quot;: {&quot;target&quot;: null, &quot;delay_s&quot;: 0.0, &quot;note&quot;: &quot;all stages complete&quot;, &quot;attempts&quot;: {&quot;classify&quot;: 1, &quot;extract&quot;: 1, &quot;validate&quot;: 1, &quot;route&quot;: 1}, &quot;degraded&quot;: false}}</pre>
+  </div>
+
+  <div class="card">
+    <h2>Note <span class="t">The design change this evidence caused</span></h2>
+    <p class="purpose">D06 is an invoice with no due date. In the first schema revision the business
+    required fields were not nullable, so the model had no way to report the absence and supplied a date
+    centuries out instead. The arithmetic downstream was then perfectly correct about nonsense, reporting
+    unusually long payment terms. Nothing crashed and the document still went to a person, because the
+    extractor honestly dropped its confidence to 0.50 and the confidence floor caught it, but the stated
+    reason described a commercial observation instead of a missing field. A schema that cannot express
+    absence does not prevent a missing value, it converts one into a fabricated one, and a fabricated
+    value that is well formed is invisible to shape checking. The two concerns were separated: every
+    field is nullable on the wire so the model can tell the truth, requiredness is enforced as a business
+    rule in Python, and a plausibility rule was added ahead of the payment terms warning as a backstop.
+    In the run above D06 reports <code>FIELD_MISSING</code> on <code>due_date</code> and extractor
+    confidence is 0.95, because the model no longer has to guess. Both changes are covered by regression
+    tests that name the observed failure.</p>
+  </div>
+
+  <footer>
+    267 tests cover the routing precedence, the boundary conditions, each business rule, the state
+    transitions and the supervisor decisions, and none of them touch the network. The project runs in
+    offline mode with no API key and no network access, against a deterministic stub model, which is how
+    the graph and the rules are tested reproducibly. Source is a local repository, committed and not yet
+    published, so no source link is claimed on this page. A walkthrough of the code and a live run are
+    available on request.<br>
+    Contact: <a href="mailto:ruan@receva.co.za">ruan@receva.co.za</a>
+  </footer>
+
+</div>
+</body>
+</html>

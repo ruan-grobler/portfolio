@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruan Grobler. Automation Engineer, Cape Town.</title>
+<meta name="description" content="Ruan Grobler, automation engineer in Cape Town. Five production systems live in 30 days at a property services group, a 1.16 million row PostgreSQL warehouse, and a live AI receptionist venture. Every project with a before, an after and a number.">
+<meta property="og:title" content="Ruan Grobler. I automate business processes and prove the impact.">
+<meta property="og:description" content="Five production systems live in 30 days on the Microsoft stack, engineering builds with openable proof, and a live AI receptionist venture. Every project with a before, an after and a number.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://portfolio.receva.co.za/">
+<!-- Absolute URL verified HTTP 200 at this host on 2026-07-31 before enabling.
+     If the site ever moves, re-curl og.png at the new host BEFORE editing these. -->
+<meta property="og:image" content="https://portfolio.receva.co.za/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ruan Grobler. Automation engineer, Cape Town.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://portfolio.receva.co.za/og.png">
+<link rel="canonical" href="https://portfolio.receva.co.za/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='7' fill='%23f7f4ed'/%3E%3Ctext x='32' y='47' font-size='42' font-family='Helvetica,Arial,sans-serif' font-weight='bold' fill='%23c2410c' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:      oklch(97.4% 0.006 85);
+    --paper-sunk: oklch(94.4% 0.008 82);
+    --ink:        oklch(22% 0.011 65);
+    --ink-2:      oklch(41% 0.011 68);
+    --ink-3:      oklch(57% 0.009 72);
+    --rule:       oklch(22% 0.011 65 / .18);
+    --rule-soft:  oklch(22% 0.011 65 / .085);
+    --accent:     oklch(57% 0.19 41);
+    --accent-ink: oklch(45% 0.16 41);
+    --accent-wash:oklch(57% 0.19 41 / .075);
+    --live:       oklch(49% 0.12 152);
+    --live-wash:  oklch(49% 0.12 152 / .11);
+    --sans:'Archivo',-apple-system,'Helvetica Neue',Arial,sans-serif;
+    --mono:'Fragment Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.55;font-variant-numeric:tabular-nums;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:var(--paper)}
+  a{color:var(--accent-ink);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:var(--max);margin-inline:auto;padding-inline:clamp(20px,4.5vw,48px)}
+  .mono{font-family:var(--mono);font-size:.71rem;letter-spacing:.05em}
+  .skip{position:absolute;left:-9999px}
+  .skip:focus{left:12px;top:12px;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:4px;z-index:99}
+
+  header{border-bottom:1px solid var(--rule)}
+  .head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px;flex-wrap:wrap}
+  .sig{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .sig i{font-style:normal;color:var(--accent);padding-inline:5px}
+  nav{display:flex;gap:clamp(12px,2.6vw,24px);align-items:center}
+  nav a{font-size:.85rem;font-weight:600;color:var(--ink-2)}
+  nav a.btn{
+    background:var(--ink);color:var(--paper);padding:8px 17px;border-radius:100px;
+    transition:background .18s cubic-bezier(.22,1,.36,1);
+  }
+  nav a.btn:hover{background:var(--accent-ink);text-decoration:none}
+
+  .hero{padding-block:clamp(52px,9vw,112px) clamp(38px,6vw,72px)}
+  .hero .eyebrow{color:var(--ink-3);margin-bottom:20px}
+  h1{
+    font-size:clamp(2.35rem,7vw,4.9rem);font-weight:800;line-height:1.03;
+    letter-spacing:-.024em;font-variation-settings:'wdth' 106;max-width:15ch;
+  }
+  h1 span{color:var(--accent)}
+  .lede{margin-top:clamp(20px,2.8vw,32px);max-width:54ch;font-size:clamp(1rem,1.5vw,1.13rem);color:var(--ink-2)}
+  .lede b{color:var(--ink);font-weight:700}
+
+  .facts{margin-top:clamp(28px,4vw,42px);border-top:1px solid var(--rule)}
+  .fact{
+    display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:baseline;
+    padding-block:12px;border-bottom:1px solid var(--rule-soft);font-size:.94rem;color:var(--ink-2);
+  }
+  .fact .n{font-family:var(--mono);font-size:.7rem;color:var(--accent-ink)}
+  .fact b{color:var(--ink)}
+  .fact a{font-weight:600}
+
+  section{padding-block:clamp(38px,5.5vw,66px)}
+  .sechead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .sechead .num{font-family:var(--mono);font-size:.76rem;color:var(--accent-ink)}
+  .sechead h2{font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:800;letter-spacing:-.008em;text-transform:uppercase}
+  .sechead .note{margin-left:auto;font-size:.78rem;color:var(--ink-3);text-align:right;max-width:34ch}
+
+  details.row{border-bottom:1px solid var(--rule)}
+  details.row > summary{
+    list-style:none;cursor:pointer;display:grid;align-items:baseline;gap:4px 16px;
+    grid-template-columns:30px minmax(0,1fr) auto auto 18px;padding-block:16px;
+    transition:background .15s ease-out;
+  }
+  details.row > summary::-webkit-details-marker{display:none}
+  details.row > summary:hover{background:var(--accent-wash)}
+  .idx{font-family:var(--mono);font-size:.7rem;color:var(--ink-3)}
+  .ttl{min-width:0}
+  .ttl h3{font-size:1.01rem;font-weight:700;letter-spacing:-.004em}
+  .ttl .line{display:block;font-size:.87rem;color:var(--ink-2);margin-top:1px;max-width:60ch}
+  .metric{font-family:var(--mono);font-size:.71rem;color:var(--ink-2);text-align:right;white-space:nowrap}
+  .tag{font-size:.6rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;padding:4px 9px;border-radius:3px;white-space:nowrap;justify-self:end}
+  .tag.live{color:var(--live);background:var(--live-wash)}
+  .tag.built{color:var(--ink-2);background:var(--paper-sunk)}
+  .tag.kit{color:var(--ink-3);background:var(--paper-sunk)}
+  .chev{justify-self:end;color:var(--ink-3);font-size:.95rem;line-height:1;transition:transform .22s cubic-bezier(.22,1,.36,1)}
+  details.row[open] .chev{transform:rotate(45deg)}
+
+  .drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s cubic-bezier(.22,1,.36,1)}
+  details.row[open] .drawer{grid-template-rows:1fr}
+  .drawer > div{overflow:hidden}
+  .detail{
+    display:grid;gap:20px clamp(20px,3vw,36px);
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    padding:4px 0 24px 46px;max-width:900px;
+  }
+  .cell .k{font-family:var(--mono);font-size:.61rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:6px}
+  .cell p{font-size:.89rem;color:var(--ink-2);max-width:48ch}
+  .cell ul{list-style:none}
+  .cell li{font-size:.89rem;padding-block:2px}
+  .cell li a{font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+  .chips span{font-family:var(--mono);font-size:.645rem;color:var(--ink-2);border:1px solid var(--rule);border-radius:3px;padding:3px 7px}
+
+  @media (max-width:660px){
+    details.row > summary{grid-template-columns:24px minmax(0,1fr) 18px}
+    .metric,summary .tag{display:none}
+    .detail{padding-left:0}
+    .sechead .note{margin-left:0;text-align:left}
+  }
+
+  .stack{display:grid;gap:0 clamp(20px,3vw,36px);grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
+  .stack > div{padding:18px 0 20px;border-bottom:1px solid var(--rule-soft)}
+  .stack .k{font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:9px}
+  .stack p{font-size:.91rem;color:var(--ink-2);line-height:1.72}
+  .stack b{color:var(--ink);font-weight:700}
+
+  footer{margin-top:clamp(28px,4.5vw,56px);background:var(--accent);color:oklch(97.5% 0.008 85)}
+  .foot{padding-block:clamp(42px,6.5vw,80px)}
+  .foot .k{font-family:var(--mono);font-size:.67rem;letter-spacing:.13em;text-transform:uppercase;opacity:.82;margin-bottom:12px}
+  .foot h2{font-size:clamp(1.6rem,4.2vw,2.75rem);font-weight:800;letter-spacing:-.017em;line-height:1.1;max-width:21ch}
+  .foot .mail{display:inline-block;margin-top:24px;background:oklch(97.5% 0.008 85);color:var(--accent-ink);font-weight:700;padding:13px 26px;border-radius:100px;font-size:.95rem}
+  .foot .mail:hover{text-decoration:none;filter:brightness(1.04)}
+  .footlinks{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:30px;font-size:.82rem}
+  .footlinks a{color:inherit;font-weight:600;opacity:.94}
+  .colophon{border-top:1px solid oklch(100% 0 0/.26);margin-top:30px;padding-top:16px;font-size:.74rem;opacity:.78;max-width:68ch}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
+
+<header>
+  <div class="wrap head">
+    <div class="sig">Ruan Grobler <i>/</i> Cape Town</div>
+    <nav>
+      <a href="https://github.com/ruan-grobler" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:ruan@receva.co.za">Email</a>
+      <a class="btn" id="cvlink" href="Ruan-Grobler-CV-web.pdf" target="_blank" rel="noopener">View CV</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow mono">AUTOMATION ENGINEER &middot; MICROSOFT POWER PLATFORM &middot; AI SYSTEMS</p>
+    <h1>I automate business processes and <span>prove the impact.</span></h1>
+    <p class="lede">
+      Every project below carries a before, an after and a number, and
+      <b>estimates stay labelled until they are measured</b>. The proof links open
+      real output, not screenshots.
+    </p>
+    <div class="facts">
+      <div class="fact"><span class="n">01</span><span><b>Five production systems live</b> in my first 30 days at a property services group, each monitored and documented.</span></div>
+      <div class="fact"><span class="n">02</span><span><b>A 1.16 million row PostgreSQL warehouse</b> built as public proof. <a href="https://github.com/ruan-grobler/dealflow-sql" target="_blank" rel="noopener noreferrer">Open the repo</a>, one command rebuilds it.</span></div>
+      <div class="fact"><span class="n">03</span><span><b>A live AI receptionist venture.</b> <a href="https://receva.co.za/demos/table-bay-accounting.html" target="_blank" rel="noopener noreferrer">Talk to a demo desk right now</a>, no signup.</span></div>
+    </div>
+  </div>
+
+  <div class="wrap" id="work">
+    <section aria-labelledby="h-prod">
+      <div class="sechead">
+        <span class="num">01</span>
+        <h2 id="h-prod">Production systems</h2>
+        <span class="note">TrueProp Property Services (True Group). Employer systems, walkthrough available in an interview.</span>
+      </div>
+      <div id="rows-TrueProp"><details class="row"><summary><span class="idx">01</span><div class="ttl"><h3>Deal Intake Automation (AI Extraction)</h3><span class="line">Broker deal emails become tracked pipeline records in under a minute.</span></div><span class="metric">1.3 to 1.8 hrs/week (est)</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Every broker deal email meant about twenty minutes of reading, retyping and filing by hand. The record was only as good as the typist.</p></div><div class="cell"><div class="k">What I built</div><p>I built a Power Automate flow that uses AI extraction to pull the deal fields out of free text email. It creates the record, files the attachments, and blocks duplicates on a unique key.</p><div class="chips"><span>Power Automate</span><span>AI Builder</span><span>SharePoint</span><span>Outlook shared mailbox</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system, so no public link. I can walk through the live flow and its reconciliation report in an interview.</p></div></div></div></div></details><details class="row"><summary><span class="idx">02</span><div class="ttl"><h3>AI Ticket Intake</h3><span class="line">Request emails become numbered tickets on a tracked list, automatically.</span></div><span class="metric">~1 hr/week saved (est)</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Maintenance and support requests came in as free text emails. No reference number, no queue, and no way to see what was still outstanding.</p></div><div class="cell"><div class="k">What I built</div><p>I built a flow where AI classifies the mail into structured fields, writes a numbered ticket with an audit trail, and auto replies to the requester with the number and a correction path.</p><div class="chips"><span>Power Automate</span><span>AI Builder</span><span>SharePoint</span><span>Outlook</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system. In an interview I can send a test mail and show it become a numbered ticket live.</p></div></div></div></div></details><details class="row"><summary><span class="idx">03</span><div class="ttl"><h3>AI Meeting Transcript Handover Records</h3><span class="line">A meeting transcript goes in, an approved handover record comes out.</span></div><span class="metric">~0.75 hrs/week (est)</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Handover detail sat inside meeting recordings. Turning a transcript into a written, searchable record was a manual write up every single time.</p></div><div class="cell"><div class="k">What I built</div><p>I built it to the operations stakeholder&#x27;s spec. AI drafts a structured handover record from the transcript, a human approves or edits it, and that approval automatically creates the maintenance entry.</p><div class="chips"><span>Power Automate</span><span>AI Builder</span><span>SharePoint</span><span>Teams</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system. I can walk the full loop live, transcript to approved record to maintenance entry, in an interview.</p></div></div></div></div></details><details class="row"><summary><span class="idx">04</span><div class="ttl"><h3>Compliance Flow Takeover (Probation Reviews)</h3><span class="line">I took over five orphaned HR compliance flows and hardened them.</span></div><span class="metric">5 flows, ~0.5 hrs/week (est)</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>I inherited five scheduled HR probation review flows. No monitoring, no runbook, and nobody but the original author could maintain them.</p></div><div class="cell"><div class="k">What I built</div><p>I took ownership, rebuilt the connections, and tested all five end to end against real review dates. Then I added failure alerting and wrote a runbook covering triggers, schedule and recovery.</p><div class="chips"><span>Power Automate</span><span>SharePoint</span><span>Outlook</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system. The runbook exists, and I can walk through all five schedules and their failure alerting.</p></div></div></div></div></details><details class="row"><summary><span class="idx">05</span><div class="ttl"><h3>Scanned Document Classification</h3><span class="line">Scanned site paperwork classifies and files itself, 20 to 25 pages daily.</span></div><span class="metric">20 to 25 pages/day (reported)</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Scanned site paperwork, mostly daily cashups and supplier invoices, was read, sorted and filed by hand at the branch.</p></div><div class="cell"><div class="k">What I built</div><p>I took ownership of the scanning pipeline and rebuilt it. AI Builder OCR reads each scan, classifies it into one of eight categories, and files it into the right shared library with a logged trail.</p><div class="chips"><span>Power Automate</span><span>AI Builder OCR</span><span>SharePoint</span><span>Scanner mailbox</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system. I can walk through the live pipeline, its filing log, and the written rollout plan for the second site.</p></div></div></div></div></details><details class="row"><summary><span class="idx">06</span><div class="ttl"><h3>Bulk Ordering Platform</h3><span class="line">A QR code replaces a phone and WhatsApp order channel with no record.</span></div><span class="metric">R0 claimed until live</span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Bulk buyers ordered by phone, WhatsApp and walk in. Missed messages meant lost orders, and no order was recorded anywhere at all.</p></div><div class="cell"><div class="k">What I built</div><p>I built it end to end in three days. One link or QR code to order, an instant reference number, a mobile approval step for the branch manager, then an automatic confirmation and a prep sheet.</p><div class="chips"><span>Power Automate</span><span>Microsoft Forms</span><span>SharePoint</span><span>Outlook</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system, still in business walkthrough, so I claim no value yet. I can demo a test order end to end.</p></div></div></div></div></details><details class="row"><summary><span class="idx">07</span><div class="ttl"><h3>HR Onboarding System</h3><span class="line">Two macro-enabled workbooks replaced by a system that works on any device.</span></div><span class="metric">45 tasks tracked per hire</span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>New hire onboarding ran on two macro-enabled Excel workbooks. Desktop only, one person in the file at a time, and no view across employees.</p></div><div class="cell"><div class="k">What I built</div><p>I audited the live process and wrote down four failure modes before building anything. Then I replaced both workbooks with a web system: a 45 task workflow per hire, a cross employee dashboard, automated task and probation emails, and CSV export.</p><div class="chips"><span>Node.js</span><span>Express</span><span>SQLite</span><span>Scheduled jobs</span><span>CSV export</span></div></div><div class="cell"><div class="k">Proof</div><p>Employer system, in business demo, so I claim no hours saved yet. I can walk the workflow, the dashboard and a test mode email run in an interview.</p></div></div></div></div></details></div><!--/rows-TrueProp-->
+    </section>
+
+    <section aria-labelledby="h-eng">
+      <div class="sechead">
+        <span class="num">02</span>
+        <h2 id="h-eng">Engineering builds</h2>
+        <span class="note">Personal builds. These ones you can open and check.</span>
+      </div>
+      <div id="rows-Personal"><details class="row"><summary><span class="idx">01</span><div class="ttl"><h3>ApplyForge: AI Job Application Engine</h3><span class="line">Scrapes job boards, scores every listing against my CV, writes the pack.</span></div><span class="metric">212 tests, CI gated</span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Applying by hand meant reading every spec and rewriting my CV and cover letter each time. Hours per application, and the scoring had no tests.</p></div><div class="cell"><div class="k">What I built</div><p>I built it in Next.js with structured Claude outputs, so every score is comparable. It ships in a multi stage Docker image, with 212 unit tests and a GitHub Actions pipeline gating typecheck, lint, tests and build.</p><div class="chips"><span>Next.js 16</span><span>TypeScript</span><span>React</span><span>Claude API</span><span>Docker</span><span>Vitest</span><span>GitHub Actions</span><span>ESLint</span></div></div><div class="cell"><div class="k">Proof</div><ul><li><a href="proof/applyforge.html" target="_blank" rel="noopener noreferrer">See the real scoring output, all 21 listings</a></li><li><a href="proof/applyforge-quality.html" target="_blank" rel="noopener noreferrer">The CI gates and their real output</a></li></ul><p>Proof pages show real scoring output for all 21 listings, plus the gates run locally with their real exit codes.</p></div></div></div></div></details><details class="row"><summary><span class="idx">02</span><div class="ttl"><h3>Agent Pipeline: Multi Agent Document Triage</h3><span class="line">Five agents sort a pile of documents and log exactly why.</span></div><span class="metric">26 of 26 routed correctly</span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Agentic AI is easy to claim on a CV and hard to prove. Job specs ask for LangGraph and I had nothing runnable to point at.</p></div><div class="cell"><div class="k">What I built</div><p>I built a LangGraph state graph: four specialist agents (classifier, extractor, validator, router) under a supervisor that owns retry, escalation and degradation. Two agents call the model, two are pure Python rules.</p><div class="chips"><span>Python</span><span>LangGraph</span><span>Claude API</span><span>JSON Schema</span><span>pytest</span></div></div><div class="cell"><div class="k">Proof</div><ul><li><a href="proof/agent-pipeline.html" target="_blank" rel="noopener noreferrer">See all 26 documents, four runs and the raw audit trail</a></li></ul><p>The proof page comes straight from the run files. All 26 documents are synthetic, so accuracy is on data of that shape.</p></div></div></div></div></details><details class="row"><summary><span class="idx">03</span><div class="ttl"><h3>DealFlow SQL: Property Deals Database</h3><span class="line">A 1.16 million row property deals warehouse, rebuilt in one command.</span></div><span class="metric">1.16M fact rows</span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>The source system keeps a status column and no history. Nobody can answer what fraction of deals reach offer, because yesterday&#x27;s status was overwritten today.</p></div><div class="cell"><div class="k">What I built</div><p>I built a star schema warehouse on PostgreSQL: two Type 2 slowly changing dimensions so history reports as it was, 84 monthly partitions on the event fact, 51 data quality assertions, and six measured performance case studies.</p><div class="chips"><span>PostgreSQL</span><span>SQL</span><span>Docker</span><span>Python</span></div></div><div class="cell"><div class="k">Proof</div><ul><li><a href="proof/dealflow-sql.html" target="_blank" rel="noopener noreferrer">See the 10 queries and their real output</a></li><li><a href="https://github.com/ruan-grobler/dealflow-sql" target="_blank" rel="noopener noreferrer">Source on GitHub</a></li></ul><p>Public repo. One command rebuilds the whole warehouse, and every query output, plan and buffer count is committed, so the numbers can be checked.</p></div></div></div></div></details><details class="row"><summary><span class="idx">04</span><div class="ttl"><h3>AI Engineering Rig (Claude Code)</h3><span class="line">Custom subagents, MCP servers and hooks that keep building while I sleep.</span></div><span class="metric"></span><span class="tag built">Built</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>One person working sequentially by hand. Build, then research, then monitor, then apply, one long thread at a time.</p></div><div class="cell"><div class="k">What I built</div><p>I built a rig of custom subagents, MCP servers, hooks and scheduled agents. Agents run research and verification in parallel, hooks enforce my standing rules, and independent agents check the work before it reaches me.</p><div class="chips"><span>Claude Code</span><span>Claude API</span><span>MCP</span><span>Python</span><span>TypeScript</span></div></div><div class="cell"><div class="k">Proof</div><p>Local setup, nothing to link. The proof pages on this site were generated by it, and the config and run logs are on disk.</p></div></div></div></div></details><details class="row"><summary><span class="idx">05</span><div class="ttl"><h3>DealFlow CRM (Dataverse PoC)</h3><span class="line">A Dataverse rebuild of the deal intake domain. Specced and seeded.</span></div><span class="metric"></span><span class="tag kit">In build</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Dataverse is the platform depth most Power Platform people skip. They stop at lists and never learn tables, relationships, security roles or model driven apps.</p></div><div class="cell"><div class="k">What I built</div><p>I specced the build and seeded synthetic data: Broker, Property, Deal and Intake Log tables, an alternate key for dedupe, business rules, two security roles with column security, and a model driven app.</p><div class="chips"><span>Dataverse</span><span>Power Apps (model driven and canvas)</span><span>Power Automate</span></div></div><div class="cell"><div class="k">Proof</div><p>Nothing is built yet, so nothing to open and no value claimed. The spec, three runbooks and seed CSVs exist and can be shared.</p></div></div></div></div></details></div><!--/rows-Personal-->
+    </section>
+
+    <section aria-labelledby="h-rec">
+      <div class="sechead">
+        <span class="num">03</span>
+        <h2 id="h-rec">Receva, my venture</h2>
+        <span class="note">AI voice receptionist. <a href="https://receva.co.za" target="_blank" rel="noopener noreferrer">receva.co.za</a></span>
+      </div>
+      <div id="rows-Receva"><details class="row"><summary><span class="idx">01</span><div class="ttl"><h3>Receva: Live AI Voice Receptionist</h3><span class="line">An AI receptionist answers a real business line in English and Afrikaans.</span></div><span class="metric">24/7 on a live line</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>During the service rush, calls rang out unanswered. Bookings and takeaway orders were lost to a busy signal.</p></div><div class="cell"><div class="k">What I built</div><p>I built it on Retell and Twilio with an SA English and Afrikaans voice. It takes bookings and orders, n8n writes each one into Supabase over webhook, and the branch dashboard shows the day.</p><div class="chips"><span>Retell</span><span>Twilio</span><span>n8n</span><span>Supabase</span><span>ElevenLabs SA voice</span></div></div><div class="cell"><div class="k">Proof</div><ul><li><a href="https://receva.co.za" target="_blank" rel="noopener noreferrer">receva.co.za</a></li></ul><p>The pilot line belongs to a client, so the number stays private. Call recordings and transcripts can be walked through on request.</p></div></div></div></div></details><details class="row"><summary><span class="idx">02</span><div class="ttl"><h3>Receva: 6 Live AI Demo Desks</h3><span class="line">Demo desks where a stranger can talk to the AI right now.</span></div><span class="metric">6 live, 65 generated</span><span class="tag live">Live</span><span class="chev">+</span></summary><div class="drawer"><div><div class="detail"><div class="cell"><div class="k">The problem</div><p>Cold outreach had nothing interactive to show. Just a claim in an email and nothing for the prospect to click.</p></div><div class="cell"><div class="k">What I built</div><p>I generate a per prospect page from their public business detail, and the Claude API answers real caller questions live in that business&#x27;s voice. Six are deployed from a library of sixty five.</p><div class="chips"><span>Astro</span><span>Vercel</span><span>Claude API</span><span>TypeScript</span></div></div><div class="cell"><div class="k">Proof</div><ul><li><a href="https://receva.co.za/demos/table-bay-accounting.html" target="_blank" rel="noopener noreferrer">Try the live AI receptionist desk</a></li><li><a href="https://receva.co.za/demos/cape-chambers-law.html" target="_blank" rel="noopener noreferrer">Try the law desk</a></li><li><a href="https://receva.co.za/demos/brightbay-dental.html" target="_blank" rel="noopener noreferrer">Try the dental desk</a></li><li><a href="https://receva.co.za/demos/atlantic-talent-recruitment.html" target="_blank" rel="noopener noreferrer">Try the recruitment desk</a></li><li><a href="https://receva.co.za" target="_blank" rel="noopener noreferrer">receva.co.za</a></li></ul><p>Nothing is scripted. Ask the desk anything and the answer is generated live.</p></div></div></div></div></details></div><!--/rows-Receva-->
+    </section>
+
+    <section aria-labelledby="h-stack">
+      <div class="sechead">
+        <span class="num">04</span>
+        <h2 id="h-stack">Stack</h2>
+        <span class="note">Only what the work above actually uses.</span>
+      </div>
+      <div class="stack">
+        <div>
+          <div class="k">Microsoft / Power Platform</div>
+          <p><b>Power Automate</b>, <b>AI Builder</b>, SharePoint, Outlook, Teams, Microsoft Forms. Dataverse specced, build starting.</p>
+        </div>
+        <div>
+          <div class="k">AI engineering</div>
+          <p><b>Claude API</b> with structured outputs, <b>LangGraph</b> multi agent, Retell voice agents, MCP, scheduled autonomous agents.</p>
+        </div>
+        <div>
+          <div class="k">Data</div>
+          <p><b>PostgreSQL</b>, SQL (schema design, joins, window functions), <b>Docker</b>, data quality assertions.</p>
+        </div>
+        <div>
+          <div class="k">Web and delivery</div>
+          <p><b>TypeScript</b>, Next.js, Python, n8n, GitHub Actions CI, Vitest and pytest, Caddy on my own Linux server.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="k">Contact</div>
+    <h2>Hiring for automation, Power Platform or AI engineering?</h2>
+    <a class="mail" href="mailto:ruan@receva.co.za">ruan@receva.co.za</a>
+    <div class="footlinks">
+      <a href="https://github.com/ruan-grobler" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="Ruan-Grobler-CV-web.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+      <a href="https://receva.co.za" target="_blank" rel="noopener noreferrer">receva.co.za</a>
+    </div>
+    <p class="colophon">
+      Static site, deployed by me on my own Linux server behind Caddy with automatic HTTPS.
+      Employer project names appear with employer approval. Client identities, deal values
+      and personal data stay off this page by design.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var TAGS = { live: ['live', 'Live'], built: ['built', 'Built'], kit: ['kit', 'In build'] };
+
+  function el(t, c, x) {
+    var n = document.createElement(t);
+    if (c) n.className = c;
+    if (x) n.textContent = x;
+    return n;
+  }
+  function safeUrl(u) {
+    if (typeof u !== 'string') return null;
+    if (u.slice(0, 8) === 'https://' || u.slice(0, 6) === 'proof/') return u;
+    return null;
+  }
+  function firstSentence(s, cap) {
+    if (!s) return '';
+    var m = String(s).match(/^[^.]+\./);
+    var out = m ? m[0] : String(s);
+    if (out.length > cap) out = out.slice(0, cap).replace(/\s+\S*$/, '') + '.';
+    return out;
+  }
+
+  // Project rows are pre-rendered into this file by build-site.py. They are NOT
+  // fetched at runtime: a crawler, a link-preview scraper or an AI fetcher only
+  // reads the raw HTML, and a JavaScript-rendered list is invisible to all of
+  // them. Run "python3 build-site.py" after editing projects.json.
+
+  fetch('Ruan-Grobler-CV-web.pdf', { method: 'HEAD' })
+    .then(function (r) {
+      if (!r.ok) {
+        var cv = document.getElementById('cvlink');
+        cv.href = 'mailto:ruan@receva.co.za?subject=CV%20request';
+        cv.textContent = 'Request CV';
+      }
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>

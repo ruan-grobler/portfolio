@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ApplyForge. Quality gates and their real output. Ruan Grobler</title>
+<meta name="description" content="Proof page. The CI pipeline for a Next.js 16 TypeScript app: the GitHub Actions workflow file, and every gate in it run locally with its real captured output and exit code.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101214'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Georgia,serif' fill='%232cccc8' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  /* Palette mirrors impact-portfolio/index.html :root exactly. */
+  :root{
+    color-scheme:dark;
+    --bg:#101214; --card:#17191c; --card2:#1d2024; --border:#272b30; --border2:#343a41;
+    --ink:#ece5d3; --soft:#b8b2a4; --mut:#7d7a70; --teal:#2cccc8;
+    --amber:#e0a83c; --red:#e06c5c; --green:#4fc383; --max:980px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    padding-bottom:70px;overflow-x:hidden}
+  a{color:var(--teal)}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:34px 24px 60px}
+  .proofbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;
+    padding:9px 17px;font-size:13.5px;font-weight:600;text-decoration:none;
+    border:1px solid var(--border2);color:var(--ink);background:var(--card);
+    transition:border-color .15s,transform .15s}
+  .btn:hover{transform:translateY(-1px);border-color:var(--teal)}
+  .verified{font-size:12px;color:var(--mut);margin-left:auto}
+  .verified b{color:var(--green);font-weight:700}
+  .eyebrow{color:var(--teal);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,'Times New Roman',serif;letter-spacing:.2px;
+    font-size:38px;font-weight:400;line-height:1.08;margin:0 0 10px}
+  .lede{font-size:16px;color:var(--soft);margin:0 0 22px;max-width:74ch}
+  .lede b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px;padding:0;list-style:none}
+  .meta li{font-size:12px;border:1px solid var(--border2);color:var(--soft);
+    border-radius:999px;padding:4px 11px;line-height:1.4;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .note{font-size:13.5px;color:var(--soft);border-left:3px solid var(--teal);
+    padding:8px 0 8px 14px;margin:0 0 26px;max-width:76ch}
+  .note strong{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:20px;margin:0 0 14px}
+  h2{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:var(--mut);
+    margin:0 0 8px;font-weight:700}
+  h2 .t{color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600;font-size:17px}
+  .purpose{margin:0 0 14px;color:var(--soft);font-size:13.5px;max-width:76ch}
+  pre{margin:0;padding:15px;background:var(--card2);border:1px solid var(--border);
+    border-radius:10px;overflow-x:auto;
+    font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--soft)}
+  .tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card2)}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+  th{font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--mut);
+    font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .small{font-size:11.5px}
+  ol.steps{margin:0 0 4px;padding-left:22px;color:var(--soft);font-size:13.5px}
+  ol.steps li{margin-bottom:5px}
+  .dec{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;
+    margin-left:6px}
+  .dec.ok{background:rgba(79,195,131,.13);color:var(--green)}
+  .dec.bad{background:rgba(224,108,92,.13);color:var(--red)}
+  footer{color:var(--mut);font-size:12px;line-height:1.7;margin-top:26px;max-width:76ch}
+  @media(max-width:720px){
+    .wrap{padding:22px 16px 50px}
+    h1{font-size:29px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="proofbar">
+    <a class="btn" href="../index.html">&#8592;&nbsp; Back to the portfolio</a>
+    <a class="btn" href="applyforge.html">The scoring output &#8594;</a>
+    <span class="verified"><b>4 of 4 gates passing.</b>
+      Captured by running them, 2026-07-30 12:55 UTC.</span>
+  </div>
+
+  <p class="eyebrow">Proof page. CI/CD and automated testing.</p>
+  <h1>The quality gates on ApplyForge, and what they actually print.</h1>
+  <p class="lede">ApplyForge is a <b>Next.js 16 TypeScript</b> application. Every push and pull request
+  installs from the lockfile and then has to clear four gates: typecheck, lint, unit tests and a
+  production build, followed by a Docker image build that boots the container and checks it serves.
+  The output below was not written by hand. This page is generated by a script that runs each command
+  in the repository and pastes back its real stdout and exit code.</p>
+
+  <ul class="meta">
+    <li>GitHub Actions</li>
+    <li>Next.js 16</li>
+    <li>TypeScript</li>
+    <li>Vitest</li>
+    <li>ESLint flat config</li>
+    <li>Docker multi stage</li>
+    <li>npm ci from lockfile</li>
+  </ul>
+
+  <p class="note"><strong>What this page does not claim.</strong> The workflow commit is in the local
+  repository and has not been published yet, so no run has executed on GitHub and there is no green
+  badge to show. Saying so is the point: the four gates below were verified by running them, and the
+  badge becomes true only after the push. What is <em>not</em> captured here is the second job: the
+  Docker image build and the container boot check are real steps in the workflow file below, but
+  running them needs a Docker daemon and would publish nothing checkable to this page, so they are
+  shown as workflow configuration only and no output is claimed for them.</p>
+
+  <div class="card">
+    <h2>Scripts <span class="t">The gate commands, one entry point each</span></h2>
+    <p class="purpose">The workflow does not hide its commands inside the runner. Every gate is an npm
+    script that runs identically on a laptop and in CI, and <code>npm run verify</code> chains all four so
+    the whole pipeline can be reproduced with one command before pushing.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Command</th><th>Runs</th></tr></thead>
+      <tbody>
+<tr><td class="mono">npm run build</td><td class="mono small">next build</td></tr>
+<tr><td class="mono">npm run typecheck</td><td class="mono small">tsc --noEmit</td></tr>
+<tr><td class="mono">npm run lint</td><td class="mono small">eslint .</td></tr>
+<tr><td class="mono">npm run test</td><td class="mono small">vitest run</td></tr>
+<tr><td class="mono">npm run verify</td><td class="mono small">npm run typecheck &amp;&amp; npm run lint &amp;&amp; npm run test &amp;&amp; npm run build</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2>Gate <span class="t">npm run typecheck</span> <span class="dec ok">exit 0</span></h2>
+    <p class="purpose">TypeScript compiles the whole project with no emit. A type error fails the pipeline before anything else runs.</p>
+    <pre>$ npm run typecheck
+
+&gt; applyforge@0.1.0 typecheck
+&gt; tsc --noEmit
+</pre>
+  </div>
+  <div class="card">
+    <h2>Gate <span class="t">npm run lint</span> <span class="dec ok">exit 0</span></h2>
+    <p class="purpose">ESLint flat config over the whole repository, using the Next.js core web vitals rules plus the TypeScript rules. Next.js 16 removed the built in lint command, so the ESLint CLI is called directly.</p>
+    <pre>$ npm run lint
+
+&gt; applyforge@0.1.0 lint
+&gt; eslint .
+</pre>
+  </div>
+  <div class="card">
+    <h2>Gate <span class="t">npm test</span> <span class="dec ok">exit 0</span></h2>
+    <p class="purpose">The unit suite over the ingestion, scoring, validation and storage logic. The network and the model API are mocked at the module boundary, so the suite runs offline and finishes in well under a second.</p>
+    <pre>$ npm test
+
+&gt; applyforge@0.1.0 test
+&gt; vitest run --reporter=verbose
+
+
+ RUN  v4.1.10 applyforge
+
+ ✓ __tests__/pnet.test.ts &gt; htmlToText &gt; removes scripts, styles and tags 2ms
+ ✓ __tests__/pnet.test.ts &gt; htmlToText &gt; decodes the entities that actually show up in job ads 0ms
+ ✓ __tests__/pnet.test.ts &gt; htmlToText &gt; collapses runs of whitespace and trims 0ms
+ ✓ __tests__/pnet.test.ts &gt; htmlToText &gt; returns an empty string for empty input 0ms
+ ✓ __tests__/pnet.test.ts &gt; fetchHtml &gt; sends a browser user agent, because the board rejects the default one 0ms
+ ✓ __tests__/pnet.test.ts &gt; fetchHtml &gt; throws with the status code when the board refuses 1ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; builds the keyword URL, and the location URL when a location slug is given 0ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; maps an embedded listing onto a typed item 0ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; fills in blanks for a listing with no salary, company or date 0ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; coerces an id sent as a string 0ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; drops entries with no title or no url 1ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; does not stop at a brace or a quote inside a snippet string 0ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; returns an empty list when the page has no embedded state 1ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; returns an empty list when the embedded state is truncated 1ms
+ ✓ __tests__/pnet.test.ts &gt; pnetSearch &gt; returns an empty list when the state has no results at all 0ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson request &gt; parses the JSON body out of the text block 7ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson request &gt; sends the system prompt, the user prompt and the JSON schema 1ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson request &gt; honours a max token override 1ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson request &gt; reads the text block even when other block types come first 0ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson failure handling &gt; reports a safety refusal in plain words 3ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson failure handling &gt; names truncation instead of leaking a bare JSON syntax error 1ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson failure handling &gt; reports an empty or missing text block clearly 0ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson failure handling &gt; quotes the start of the payload when the JSON will not parse 0ms
+ ✓ __tests__/claude.test.ts &gt; claudeJson failure handling &gt; lets a transport error from the SDK propagate 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaEnabled &gt; is true only when both credentials are present 4ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaEnabled &gt; returns no results and makes no request when the source is not configured 1ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch query building &gt; sends the credentials and the fixed feed settings 1ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch query building &gt; maps phrase and or-terms onto the right parameters 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch query building &gt; adds a search radius only when a location is given 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; builds a title from role, company, location and salary 1ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; omits the salary text entirely when the listing has no salary, instead of printing R undefined 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; reuses the minimum when only one end of the salary range is published 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; survives a listing with a null description 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; strips HTML out of the snippet and caps it at 300 characters 2ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch result mapping &gt; drops listings with no redirect URL, because they cannot be scraped or applied to 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch failure handling &gt; returns an empty list when the payload has no results key 0ms
+ ✓ __tests__/adzuna.test.ts &gt; adzunaSearch failure handling &gt; throws a labelled error carrying the status code 8ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; accepts a well formed payload and returns it typed 6ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; clamps an out of range score instead of storing it 0ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; rejects a payload that is not an object 2ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; rejects a payload missing required fields and names every one of them 1ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; rejects a job payload with no usable score 0ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; rejects a wrong type on a nullable field 0ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; treats a missing nullable field as null rather than undefined 1ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; rejects qualifications or gaps that are not arrays 2ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; drops junk entries inside qualifications and gaps 1ms
+ ✓ __tests__/validate.test.ts &gt; parseAnalyzeResult &gt; still validates a not-a-job payload, where the model fills placeholders 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; reads picks from the wrapper object 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; accepts a bare array too 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; drops repeated indices, so one advert is never analysed twice 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; drops indices outside the candidate list 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; drops non integer indices 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; coerces an integer sent as a string 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; returns an empty list when the model shortlists nothing 0ms
+ ✓ __tests__/validate.test.ts &gt; parsePicks &gt; throws when the payload has no picks array at all 1ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; maps every model field onto the stored job 11ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; falls back to the source URL when the ad exposes no apply link 0ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; leaves applyUrl null for pasted text with no source URL 0ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; keeps a missing salary as null instead of inventing a range 0ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; clamps a score the model pushed out of range 1ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; truncates the stored advert text at 20000 characters 1ms
+ ✓ __tests__/analyze.test.ts &gt; resultToJob field mapping &gt; stamps a unique id and a parseable ISO timestamp 0ms
+ ✓ __tests__/analyze.test.ts &gt; analyzeJob &gt; sends the CV and the page text to the model and returns a validated result 0ms
+ ✓ __tests__/analyze.test.ts &gt; analyzeJob &gt; caps the page text sent to the model at 16000 characters 0ms
+ ✓ __tests__/analyze.test.ts &gt; analyzeJob &gt; rejects a malformed model payload instead of storing a broken job 1ms
+ ✓ __tests__/analyze.test.ts &gt; analyzeJob &gt; rejects a payload where the score came back as prose 0ms
+ ✓ __tests__/analyze.test.ts &gt; triageCandidates &gt; returns the shortlisted indices 0ms
+ ✓ __tests__/analyze.test.ts &gt; triageCandidates &gt; sanitises indices the model invented 0ms
+ ✓ __tests__/analyze.test.ts &gt; triageCandidates &gt; numbers the candidates in the prompt so the indices mean something 0ms
+ ✓ __tests__/analyze.test.ts &gt; generatePack &gt; maps the model output onto an application pack 0ms
+ ✓ __tests__/analyze.test.ts &gt; generatePack &gt; leaves the email draft null when the ad does not take email applications 0ms
+ ✓ __tests__/analyze.test.ts &gt; generatePack &gt; falls back to the job title when a body arrives with no subject 0ms
+ ✓ __tests__/analyze.test.ts &gt; generatePack &gt; gives the model the known gaps so the letter stays honest 0ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; creates the data directory and an empty db on first read 46ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; writes and reads back a job unchanged 3ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; survives a full write, read, mutate, write cycle 6ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; writes the file as readable indented JSON 4ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; puts a newly added job at the top of the list 4ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; updates in place rather than appending a second copy 8ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; deletes only the requested job 5ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; returns undefined for an unknown id and no-ops on an unknown delete 1ms
+ ✓ __tests__/store.test.ts &gt; store round trip &gt; reads the CV, and returns an empty string when there is none 1ms
+ ✓ __tests__/store.test.ts &gt; store hasUrl dedupe &gt; matches the exact stored URL 4ms
+ ✓ __tests__/store.test.ts &gt; store hasUrl dedupe &gt; matches the same listing with a trailing slash, www or http 1ms
+ ✓ __tests__/store.test.ts &gt; store hasUrl dedupe &gt; matches the same listing carrying campaign tracking parameters 2ms
+ ✓ __tests__/store.test.ts &gt; store hasUrl dedupe &gt; does not match a different listing 2ms
+ ✓ __tests__/store.test.ts &gt; store hasUrl dedupe &gt; does not match on an empty URL, even though jobs can have a null sourceUrl 3ms
+ ✓ __tests__/store.test.ts &gt; store resilience &gt; treats a db file with no jobs array as empty 3ms
+ ✓ __tests__/store.test.ts &gt; store resilience &gt; refuses to overwrite a corrupted db file, so scored jobs are not lost 2ms
+ ✓ __tests__/scan-helpers.test.ts &gt; interleave &gt; takes one from each source in turn 2ms
+ ✓ __tests__/scan-helpers.test.ts &gt; interleave &gt; keeps going once the shorter sources run out, with no undefined holes 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; interleave &gt; handles no sources and all empty sources 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; interleave &gt; preserves order inside a single source 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; interleave &gt; gives a broad source no more than its turn in the first slots 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; keeps distinct listings in their original order 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; drops an exact repeat from a second query 1ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; drops the same listing arriving with a trailing slash, www or http 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; drops the same listing arriving with campaign tracking parameters, which used to be analysed twice 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; keeps listings that differ only in a meaningful query parameter 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; drops listings the store already holds 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; asks the store using the normalised key, not the raw URL 1ms
+ ✓ __tests__/scan-helpers.test.ts &gt; dedupeCandidates &gt; drops entries with an unusable URL 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; resolvePicks &gt; maps indices back to candidates in the order the model ranked them 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; resolvePicks &gt; never returns more than the cap 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; resolvePicks &gt; drops out of range and non integer indices instead of returning undefined 0ms
+ ✓ __tests__/scan-helpers.test.ts &gt; resolvePicks &gt; returns nothing when the model shortlisted nothing 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; keeps a valid score unchanged 1ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; holds the 0 and 100 boundaries 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; clamps above 100 and below 0 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; rounds a fractional score to an integer 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; accepts a numeric string, because models return &quot;73&quot; often enough 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeScore &gt; returns null for values that are not a score 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; strips a trailing slash 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; treats http, https, www and host casing as the same listing 1ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; keeps path case, because paths can be case sensitive 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; drops tracking parameters and the fragment 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; keeps meaningful query parameters and orders them 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; is stable when called twice 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; returns an empty string for empty input 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; falls back to a trimmed lowercase key for non URL input 0ms
+ ✓ __tests__/normalize.test.ts &gt; normalizeUrl &gt; leaves a non http scheme alone rather than rewriting it to https 0ms
+
+ Test Files  8 passed (8)
+      Tests  121 passed (121)
+   Start at  14:55:19
+   Duration  566ms (transform 461ms, setup 143ms, import 623ms, tests 196ms, environment 1ms)
+</pre>
+  </div>
+  <div class="card">
+    <h2>Gate <span class="t">npm run build</span> <span class="dec ok">exit 0</span></h2>
+    <p class="purpose">The production Next.js build, standalone output. It compiles every route and collects page data, so it catches what a typecheck cannot: a route that fails at build time. distDir is a config-only option in Next.js 16, so this page builds into an isolated directory through NEXT_DIST_DIR rather than into .next, which means capturing this gate cannot disturb a development server that is already running. No API key is set for it, because the Claude client is constructed lazily on first use, so a build never needs a credential to exist.</p>
+    <pre>$ npm run build
+
+&gt; applyforge@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.2.12 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.4s
+  Running TypeScript ...
+  Finished TypeScript in 2.2s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/6) ...
+  Generating static pages using 7 workers (1/6) 
+  Generating static pages using 7 workers (2/6) 
+  Generating static pages using 7 workers (4/6) 
+✓ Generating static pages using 7 workers (6/6) in 117ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/jobs
+├ ƒ /api/jobs/[id]
+├ ƒ /api/jobs/[id]/pack
+└ ƒ /api/jobs/scan
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>Workflow <span class="t">.github/workflows/ci.yml, verbatim</span></h2>
+    <p class="purpose">Two jobs. The first runs the four gates above. The second depends on the first,
+    so no Docker build minutes are spent when a typecheck has already failed, and it boots the built
+    image to confirm it serves HTTP 200 as a non root user, because an image that builds is not the same
+    as an image that runs. A concurrency group cancels superseded runs, since a newer push makes an older
+    run's result worthless. Step names in order:</p>
+    <ol class="steps">
+      <li>Checkout</li>
+      <li>Set up Node</li>
+      <li>Install dependencies</li>
+      <li>Typecheck</li>
+      <li>Lint</li>
+      <li>Test</li>
+      <li>Build</li>
+      <li>Checkout</li>
+      <li>Set up Buildx</li>
+      <li>Build image (build only, never pushed)</li>
+      <li>Verify the image boots and serves the UI</li>
+    </ol>
+    <pre>name: CI
+
+# Push covers main, pull_request covers everything on its way to main. Keeping
+# push on every branch as well would fire two runs of the identical commit for a
+# same repo pull request, because the concurrency group below is keyed on
+# github.ref and those two events carry different refs, so neither cancels the
+# other. Two full Docker builds per pull request is a real cost for no signal.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same ref makes the previous run pointless, so cancel it.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: &#x27;1&#x27;
+  # No ANTHROPIC_API_KEY, not even a fake one. src/lib/claude.ts constructs the
+  # Anthropic client lazily on first use, so neither the build nor the test suite
+  # needs a credential to exist, and no CI step calls the Claude API.
+
+jobs:
+  quality:
+    name: Typecheck, lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: &#x27;24&#x27;
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  docker:
+    name: Docker image build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: quality
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build image (build only, never pushed)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          load: true
+          tags: applyforge:ci
+          cache-from: type=gha
+          # ignore-error keeps a cache export hiccup from failing the build. The
+          # image build itself is still a hard gate.
+          cache-to: type=gha,mode=max,ignore-error=true
+
+      - name: Verify the image boots and serves the UI
+        run: |
+          # No API key is passed. The boot check only asks whether the server
+          # comes up and serves the UI, and the Claude client is built lazily,
+          # so nothing on that path needs a credential.
+          docker run -d --name applyforge-ci -p 3000:3000 applyforge:ci
+          for _ in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3000/ &gt;/dev/null 2&gt;&amp;1; then
+              echo &quot;Container is serving on port 3000.&quot;
+              docker rm -f applyforge-ci
+              exit 0
+            fi
+            sleep 2
+          done
+          echo &quot;Container did not become healthy in time.&quot;
+          docker logs applyforge-ci
+          docker rm -f applyforge-ci
+          exit 1
+</pre>
+  </div>
+
+  <footer>
+    Two decisions worth naming, because they were failures first. ESLint is pinned to version 9, not 10:
+    the React plugin bundled inside the Next.js ESLint config calls an API that version 10 removed, so
+    the run crashes outright. And the lint gate found two real problems the first time it ran, a state
+    update cascading out of an effect on the main page and an untyped test cast, both fixed in code
+    rather than silenced with an ignore rule. A gate that never fails is not a gate.<br>
+    Contact: <a href="mailto:ruan@receva.co.za">ruan@receva.co.za</a>
+  </footer>
+
+</div>
+</body>
+</html>
