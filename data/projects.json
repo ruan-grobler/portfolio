@@ -1,0 +1,499 @@
+{
+  "_how": [
+    "Source of truth for the project grid. Edit here, then run: python3 tools/build.py",
+    "show: false hides a card without deleting it.",
+    "status: live | demo | built | inbuild. Cards with inbuild render without numbers or proof links.",
+    "number: null renders 'No number claimed' plus numberNote. Never type a number that did not come from a real run.",
+    "To switch an in-build card on: paste the real number from docs/demo-output.txt into number, fill before and after, add the public repo to proof, then set status to built.",
+    "tags must be ids from the filters list. Links must start with https:// or proof/."
+  ],
+  "filters": [
+    {
+      "id": "ai-agents",
+      "label": "AI agents"
+    },
+    {
+      "id": "power-platform",
+      "label": "Power Platform"
+    },
+    {
+      "id": "n8n",
+      "label": "n8n"
+    },
+    {
+      "id": "voice-ai",
+      "label": "Voice AI"
+    }
+  ],
+  "projects": [
+    {
+      "slug": "property-services-group",
+      "show": true,
+      "featured": true,
+      "status": "live",
+      "statusNote": "Since July 2026",
+      "tags": [
+        "power-platform",
+        "ai-agents"
+      ],
+      "title": "Production automation at a property services group",
+      "pitch": "Five systems live in my first month, each with failure alerting and a written runbook.",
+      "number": {
+        "value": "5",
+        "label": "production systems live in my first 30 days",
+        "source": "Employer work. Walkthrough available in an interview."
+      },
+      "problem": "Requests, deals and scanned paperwork were handled by hand, with retyping at every step.",
+      "built": "Three systems built and two taken over in month one, then more since.",
+      "before": "Free text requests with no reference number. Paperwork filed by hand.",
+      "after": "Requests become numbered tickets. All five systems alert when they fail, and each has a written runbook.",
+      "outcomes": [
+        "Five systems live in month one: three built, two inherited and hardened.",
+        "200 of 200 historic deals migrated with zero errors.",
+        "A lease application engine of about 20 flows, tested on 17 cases and 300 combinations. Go-live pending.",
+        "A Xero supplier bill integration, live in one organisation.",
+        "An email reminder assistant that senior leadership uses daily."
+      ],
+      "stack": [
+        "Power Automate",
+        "AI Builder",
+        "SharePoint",
+        "Teams",
+        "Outlook",
+        "Xero API"
+      ],
+      "proof": [],
+      "proofNote": "Employer systems, so there is no public link. Walkthrough available in an interview."
+    },
+    {
+      "slug": "power-platform-proof",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "power-platform"
+      ],
+      "title": "Power Platform proof: a PCF control and a Power Pages site",
+      "pitch": "A PCF field control that turns a due date into a live SLA countdown, and a Power Pages code site where patients of a fictional clinic request appointments.",
+      "number": {
+        "value": "114",
+        "label": "automated tests pass across both projects, and both build clean",
+        "source": "Public repo README, test runs on 21 Oct 2026."
+      },
+      "problem": "Most Power Platform portfolios stop at screenshots. There is no code to read and nothing that proves the pro code side.",
+      "built": "A PCF control in TypeScript with green, amber, red and overdue states that all pass WCAG AA contrast, and a React Power Pages site on the Web API with POPIA consent, where signed in users see only their own requests.",
+      "before": "Low code claims with nothing to inspect.",
+      "after": "Two working projects with 57 tests each, solution packaging for the control, and deploy steps for a Dataverse environment.",
+      "stack": [
+        "Power Apps PCF",
+        "Power Pages",
+        "Dataverse Web API",
+        "TypeScript",
+        "React",
+        "Vitest"
+      ],
+      "proof": [
+        {
+          "label": "Source and tests on GitHub",
+          "url": "https://github.com/ruan-grobler/power-platform-proof"
+        }
+      ],
+      "proofNote": "The clinic is fictional and the site is not deployed to a live environment."
+    },
+    {
+      "slug": "lead-to-deal-copilot",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Lead to deal copilot",
+      "pitch": "Inbound leads from a web form, email or Slack become clean, deduplicated HubSpot deals that a person approves in Slack with one click.",
+      "number": {
+        "value": "0",
+        "label": "lost leads and 0 duplicate deals across 25 synthetic messages, through 12 HubSpot rate limit errors",
+        "source": "docs/demo-output.txt in the repo, from npm run demo."
+      },
+      "problem": "Leads arrive in three places and someone retypes each one into the CRM, so duplicates and gaps slip through.",
+      "built": "Claude cleans each lead, duplicates are caught before they reach HubSpot, and a person approves every deal in Slack.",
+      "before": "About 6 minutes per lead to read it, check HubSpot for duplicates, retype it and tell the team. That is an estimate, not a measurement.",
+      "after": "25 inbound messages became 15 Slack cards that each need one click. Replays, spam and follow ups were handled without a person. 160 tests pass.",
+      "stack": [
+        "TypeScript",
+        "Slack Bolt",
+        "HubSpot API",
+        "Claude API",
+        "SQLite",
+        "Vitest",
+        "Docker"
+      ],
+      "proof": [
+        {
+          "label": "Source, tests and the saved demo output on GitHub",
+          "url": "https://github.com/ruan-grobler/lead-to-deal-copilot"
+        }
+      ],
+      "proofNote": "Runs against mocks of Slack, HubSpot and Claude, so anyone can rerun it with no accounts. The AI answers in the demo are scripted, so it proves the plumbing and the fallbacks, not model accuracy."
+    },
+    {
+      "slug": "n8n-missed-call-recovery",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "n8n"
+      ],
+      "title": "Missed call recovery kit for n8n",
+      "pitch": "A free n8n kit that follows up a missed call with a message and logs the lead for a callback.",
+      "number": {
+        "value": "32 of 40",
+        "label": "missed callers got a booking link on a synthetic Friday, with 0 double texts and 0 texts after an opt out",
+        "source": "docs/demo-output.txt and docs/e2e-output.txt in the repo. The same day passes 15 of 15 checks in real n8n in Docker."
+      },
+      "problem": "A call missed during a busy hour is usually a lost booking, because nobody calls back in time.",
+      "built": "An n8n workflow that catches the missed call, messages the caller and logs the lead.",
+      "before": "A missed call at the dinner rush is a lost order. Nobody has time to call back.",
+      "after": "Every missed caller gets one text with a booking link, never between 21:00 and 08:00, and never again after STOP. The manager gets a counts only report at 08:00. 179 tests pass.",
+      "stack": [
+        "n8n",
+        "Twilio",
+        "PostgreSQL",
+        "TypeScript",
+        "Vitest",
+        "Docker"
+      ],
+      "proof": [
+        {
+          "label": "Importable workflows, tests and the Docker run on GitHub",
+          "url": "https://github.com/ruan-grobler/n8n-missed-call-recovery"
+        }
+      ],
+      "proofNote": "Free edition, MIT licensed. Fictional pizzeria, synthetic calls."
+    },
+    {
+      "slug": "voice-agent-evals",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "voice-ai",
+        "ai-agents"
+      ],
+      "title": "Voice agent evals",
+      "pitch": "Regression tests for AI receptionists. Realistic caller scenarios run against the agent prompt before it goes live.",
+      "number": {
+        "value": "0 to 15",
+        "label": "of 15 caller scenarios passed, weak prompt to fixed prompt, with the CI gate blocking the regression",
+        "source": "docs/demo-output.txt in the repo, from make demo."
+      },
+      "problem": "A prompt change can break a receptionist on calls nobody tested, and the first person to notice is a caller.",
+      "built": "A Python suite that replays caller scenarios against a voice agent prompt and scores every reply.",
+      "before": "A prompt change goes live and the first sign of a broken call is a customer hearing it.",
+      "after": "15 caller scenarios run before every change, graded by code checks and an LLM judge, and a regression fails the build. 172 tests pass.",
+      "stack": [
+        "Python",
+        "pytest",
+        "Claude API",
+        "LLM as a judge",
+        "GitHub Actions"
+      ],
+      "proof": [
+        {
+          "label": "Scenarios, checks, judge calibration and reports on GitHub",
+          "url": "https://github.com/ruan-grobler/voice-agent-evals"
+        }
+      ],
+      "proofNote": "The 30 test calls in the repo are scripted, not recorded from a live model, and the README says so. Fictional dental practice and pizzeria."
+    },
+    {
+      "slug": "campaign-brief-agent",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Campaign brief agent: a checked multi agent plan",
+      "pitch": "Claude agents turn a marketing brief into a launch plan five teams can run, and a separate checker attacks the plan before a person approves it.",
+      "number": {
+        "value": "28 of 28",
+        "label": "rubric checks pass on 5 of 5 synthetic briefs, and a planted prompt injection is flagged and not acted on",
+        "source": "docs/demo-output.txt in the repo. The demo replays a recorded run and matches 840 of 840 events."
+      },
+      "problem": "A brief becomes a plan by hand: split across teams, dates worked around weekends and approvals, gaps chased, then typed into Asana and Slack.",
+      "built": "Five specialist agents call validated MCP tools, a checker traces every requirement to tasks, one revision fixes what it finds, and approval is by exception. The dry run writes the exact Asana and Slack requests.",
+      "before": "Blocking findings at the first check: 36.",
+      "after": "Blocking findings after one revision: 1. 38 tests pass.",
+      "stack": [
+        "TypeScript",
+        "Claude",
+        "MCP",
+        "Multi agent",
+        "Evals"
+      ],
+      "proof": [
+        {
+          "label": "Source, recorded run and offline demo on GitHub",
+          "url": "https://github.com/ruan-grobler/campaign-brief-agent"
+        }
+      ],
+      "proofNote": "Offline demo, no API key needed. Synthetic briefs and businesses."
+    },
+    {
+      "slug": "parallel-browser-mcp",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Parallel browser MCP server",
+      "pitch": "Gives AI agents many isolated browser sessions at once, so web tasks run side by side instead of one tab at a time.",
+      "number": {
+        "value": "3.58x",
+        "label": "faster on 8 slow pages: 22.86 s one at a time, 6.38 s with 4 sessions",
+        "source": "The demo output in the repo README."
+      },
+      "problem": "An AI agent with one browser works through pages one at a time, and two agents sharing a tab trip over each other.",
+      "built": "An MCP server over Playwright with isolated sessions, a session cap, per task timeouts, saved login profiles with a lock, and clean shutdown.",
+      "before": "8 pages, one at a time: 22.86 s.",
+      "after": "8 pages, 4 sessions: 6.38 s. 90 unit tests and the smoke test pass.",
+      "stack": [
+        "TypeScript",
+        "MCP",
+        "Playwright",
+        "Node.js"
+      ],
+      "proof": [
+        {
+          "label": "Source, tests and the benchmark on GitHub",
+          "url": "https://github.com/ruan-grobler/parallel-browser-mcp"
+        }
+      ],
+      "proofNote": "Runs locally over stdio. No network port."
+    },
+    {
+      "slug": "receva-voice",
+      "show": true,
+      "status": "demo",
+      "tags": [
+        "voice-ai"
+      ],
+      "title": "Receva: AI voice receptionist",
+      "pitch": "An AI receptionist on a live demo line takes orders and bookings in SA English or Afrikaans.",
+      "number": null,
+      "numberNote": "It runs on a demo line, so there is no client traffic to measure yet.",
+      "problem": "At the restaurant I managed, the phone rang most when our hands were fullest, and bookings rang out.",
+      "built": "A Twilio SIP trunk routes calls to a Retell voice agent. The agent's tools call the Receva site, which re-prices every order from the menu and logs each order or booking.",
+      "before": "Calls missed during the rush, with no record of what the caller wanted.",
+      "after": "Calls to the demo line are answered, transcribed and logged to a dashboard, in either language.",
+      "stack": [
+        "Retell",
+        "Twilio SIP trunk",
+        "Astro API routes",
+        "Airtable"
+      ],
+      "proof": [
+        {
+          "label": "Phone the demo line",
+          "url": "https://receva.co.za/demo"
+        },
+        {
+          "label": "receva.co.za",
+          "url": "https://receva.co.za"
+        }
+      ],
+      "proofNote": "It runs on the real menu of the restaurant I managed until July 2026 and still answers in its name. It was never on the restaurant's phone, and the restaurant is not a client."
+    },
+    {
+      "slug": "receva-desks",
+      "show": true,
+      "status": "live",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Receva: AI demo desks for prospects",
+      "pitch": "Per prospect pages where a stranger can question an AI receptionist, with no signup.",
+      "number": null,
+      "numberNote": "These are sales demos, so no business result is claimed.",
+      "problem": "Cold outreach had nothing interactive to show. A claim in an email and nothing to click.",
+      "built": "Each prospect gets a desk generated from their public business detail. The Claude API answers caller questions live, in that business's voice.",
+      "before": "A claim in an email.",
+      "after": "A working desk the prospect can test for themselves. Nothing on it is scripted.",
+      "stack": [
+        "Astro",
+        "Vercel",
+        "Claude API",
+        "TypeScript"
+      ],
+      "proof": [
+        {
+          "label": "Try the accounting desk",
+          "url": "https://receva.co.za/demos/table-bay-accounting.html"
+        },
+        {
+          "label": "Try the law desk",
+          "url": "https://receva.co.za/demos/cape-chambers-law.html"
+        }
+      ],
+      "proofNote": "Ask a desk anything. Every answer is generated live."
+    },
+    {
+      "slug": "applyforge",
+      "show": false,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "ApplyForge: AI job application engine",
+      "pitch": "Scores every job listing against my CV with structured Claude outputs and writes the application pack.",
+      "number": {
+        "value": "121",
+        "label": "tests pass in GitHub Actions",
+        "source": "CI run history on the proof page."
+      },
+      "problem": "Every application meant reading the spec and rewriting a CV and letter by hand, and the scorer had no tests.",
+      "built": "A Next.js app with structured Claude outputs, so scores compare. Unmet requirements stay unmet, and a CI pipeline gates typecheck, lint, tests, build and a Docker boot check.",
+      "before": "Hours per application, and a scorer that could be wrong without anyone noticing.",
+      "after": "21 real listings scored with written reasoning and packs generated for 3. The top score on my own data is 60 of 100.",
+      "stack": [
+        "Next.js 16",
+        "TypeScript",
+        "Claude API",
+        "Vitest",
+        "GitHub Actions",
+        "Docker"
+      ],
+      "proof": [
+        {
+          "label": "See the real scoring output, all 21 listings",
+          "url": "proof/applyforge.html"
+        },
+        {
+          "label": "The CI gates and the GitHub Actions run history",
+          "url": "proof/applyforge-quality.html"
+        }
+      ],
+      "proofNote": "The repository is private for now, so the proof pages carry the captured output."
+    },
+    {
+      "slug": "ai-rig",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "AI engineering rig on Claude Code",
+      "pitch": "Custom subagents, MCP servers, hooks and scheduled agents that run research and checks in parallel.",
+      "number": null,
+      "numberNote": "It is my own delivery setup, so there is no business number to claim.",
+      "problem": "One person working one thread at a time: build, then research, then check, then apply.",
+      "built": "Subagents take research and verification in parallel, hooks enforce standing rules on every session, and independent agents check work before it reaches me.",
+      "before": "Sequential work by hand.",
+      "after": "Research notes and morning briefs run overnight. The proof pages on this site were generated through it.",
+      "stack": [
+        "Claude Code",
+        "Claude API",
+        "MCP",
+        "Python",
+        "TypeScript"
+      ],
+      "proof": [],
+      "proofNote": "A local setup, so there is nothing to link. The config, hooks and run logs can be shown on a shared screen."
+    },
+    {
+      "slug": "agent-pipeline",
+      "show": false,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Agent Pipeline: multi agent document triage",
+      "pitch": "Four agents and a supervisor sort a pile of documents and log why each one went where it did.",
+      "number": {
+        "value": "26 of 26",
+        "label": "routing decisions correct on a live run",
+        "source": "Proof page. 26 synthetic documents."
+      },
+      "problem": "Agentic AI is easy to put on a CV and hard to prove. I had nothing runnable to point at.",
+      "built": "A LangGraph state graph. Two agents read with Claude, two decide with plain Python rules, and a supervisor owns retry, escalation and degradation.",
+      "before": "Agent claims with nothing to run.",
+      "after": "A live run over 26 documents: 50 model calls, 301 audit events, zero retries. 267 offline tests cover the rules and routing.",
+      "stack": [
+        "Python",
+        "LangGraph",
+        "Claude API",
+        "JSON Schema",
+        "pytest"
+      ],
+      "proof": [
+        {
+          "label": "See all 26 documents and the raw audit trail",
+          "url": "proof/agent-pipeline.html"
+        }
+      ],
+      "proofNote": "Source is a local repository for now. Every number on the proof page comes from the committed run files."
+    },
+    {
+      "slug": "dealflow-sql",
+      "show": false,
+      "status": "built",
+      "tags": [
+        "data"
+      ],
+      "title": "DealFlow SQL: a PostgreSQL warehouse in one command",
+      "pitch": "About 1.5 million messy synthetic rows in, a tested star schema out, rebuilt by one command.",
+      "number": {
+        "value": "1,165,043",
+        "label": "fact rows, with history kept as it was",
+        "source": "Public repo. One command rebuilds it."
+      },
+      "problem": "The source system keeps one status column and overwrites it, so nobody can say what share of deals reach an offer.",
+      "built": "A star schema on PostgreSQL 16 with Type 2 history, 84 monthly partitions plus a default, and bad rows diverted with a reason code.",
+      "before": "No history. Yesterday's status is gone by today.",
+      "after": "History reports as it was. 51 data quality assertions and 6 measured performance case studies, committed with real output.",
+      "stack": [
+        "PostgreSQL 16",
+        "SQL",
+        "Docker",
+        "Python"
+      ],
+      "proof": [
+        {
+          "label": "Source and results on GitHub",
+          "url": "https://github.com/ruan-grobler/dealflow-sql"
+        },
+        {
+          "label": "The 6 measured performance case studies",
+          "url": "https://github.com/ruan-grobler/dealflow-sql/blob/main/PERFORMANCE.md"
+        }
+      ],
+      "proofNote": "Synthetic data only. Every query output, plan and buffer count is committed, so the numbers can be checked."
+    },
+    {
+      "slug": "dealflow-crm",
+      "show": false,
+      "status": "built",
+      "tags": [
+        "power-platform",
+        "data"
+      ],
+      "title": "DealFlow CRM: Dataverse built by script",
+      "pitch": "A Dataverse solution created through the Web API, then checked by a script that reads it back from the live environment.",
+      "number": {
+        "value": "30 of 30",
+        "label": "checks passed against the live environment",
+        "source": "Build log, Aug 2026. Walkthrough on request."
+      },
+      "problem": "Most Power Platform work is clicked together in the maker portal. Nobody can review it, diff it or rebuild it.",
+      "built": "Idempotent Node scripts create the solution: 4 tables, relationships, alternate keys, 2 security roles, column security, 3 charts, a dashboard, a cloud flow and a published model driven app.",
+      "before": "A specification, runbooks and seed data. Nothing in an environment.",
+      "after": "The solution rebuilds from scripts, and each platform failure hit on the way is written up with its fix. Still to build: two business rules, an escalation flow and a canvas app.",
+      "stack": [
+        "Dataverse",
+        "Dataverse Web API",
+        "Node.js",
+        "OAuth device code",
+        "Model driven apps",
+        "Power Automate"
+      ],
+      "proof": [],
+      "proofNote": "Scripts and build log are on disk, with synthetic data only. Walkthrough and a live verify run on request."
+    }
+  ]
+}

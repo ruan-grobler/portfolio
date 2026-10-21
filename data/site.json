@@ -1,0 +1,278 @@
+{
+  "_how": [
+    "Headline numbers and credentials. Edit here, then run: python3 tools/build.py",
+    "Every credential with show: true needs a verify URL that opens logged out and shows the holder's name.",
+    "Credentials with an empty verify stay hidden until a public link exists."
+  ],
+  "headline": [
+    {
+      "value": "5",
+      "label": "production systems live in my first 30 days at a property services group",
+      "source": "Employer work. Walkthrough in an interview.",
+      "url": null
+    },
+    {
+      "value": "0",
+      "label": "lost leads and 0 duplicate deals across 25 test leads, through a HubSpot rate limit storm",
+      "source": "Public repo, demo output",
+      "url": "https://github.com/ruan-grobler/lead-to-deal-copilot"
+    },
+    {
+      "value": "15 of 15",
+      "label": "end to end checks pass in real n8n running in Docker, on a synthetic day of missed calls",
+      "source": "Public repo, e2e output",
+      "url": "https://github.com/ruan-grobler/n8n-missed-call-recovery"
+    },
+    {
+      "value": "28 of 28",
+      "label": "rubric checks pass on a multi agent plan, with a planted prompt injection caught",
+      "source": "Public repo, offline demo",
+      "url": "https://github.com/ruan-grobler/campaign-brief-agent"
+    }
+  ],
+  "credentials": [
+    {
+      "group": "Microsoft",
+      "name": "Microsoft Certified: Power Platform Fundamentals (PL-900)",
+      "short": "PL-900",
+      "detail": "Proctored certification exam",
+      "date": "16 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://learn.microsoft.com/en-us/users/ruangrobler-2295/credentials/baa7a34cf55cfe00"
+    },
+    {
+      "group": "Microsoft",
+      "name": "Applied Skills: Create and manage automated processes by using Power Automate",
+      "short": "Applied Skills: Power Automate",
+      "detail": "Hands on lab assessment",
+      "date": "15 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://learn.microsoft.com/en-us/users/ruangrobler-2295/credentials/e93135ba21d097d9"
+    },
+    {
+      "group": "Microsoft",
+      "name": "Applied Skills: Create and manage canvas apps with Power Apps",
+      "short": "Applied Skills: Canvas apps",
+      "detail": "Hands on lab assessment",
+      "date": "15 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://learn.microsoft.com/en-us/users/ruangrobler-2295/credentials/a59e21ae3b6990d5"
+    },
+    {
+      "group": "Microsoft",
+      "name": "Applied Skills: Build an agent in Microsoft Copilot Studio",
+      "short": "Applied Skills: Copilot Studio",
+      "detail": "Hands on lab assessment",
+      "date": "16 Oct 2026",
+      "strip": true,
+      "show": false,
+      "verify": "",
+      "_todo": "Paste the Microsoft Learn share link (Profile, Credentials, Share), then set show to true."
+    },
+    {
+      "group": "Oracle",
+      "name": "Agentic AI Certified Foundations Associate (1Z0-1157-26)",
+      "short": "Agentic AI Foundations Associate",
+      "detail": "Proctored exam, passed with 98%",
+      "date": "12 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://catalog-education.oracle.com/pls/certview/sharebadge?id=8FDCDFB116591E7F731F5A3AA1D814B0F74AC46920F5DBA8293C68CF6DFEED12"
+    },
+    {
+      "group": "Oracle",
+      "name": "Oracle Cloud Infrastructure AI Foundations Associate (1Z0-1122-26)",
+      "short": "OCI AI Foundations",
+      "detail": "Exam, passed with 98%",
+      "date": "15 Oct 2026",
+      "strip": false,
+      "show": false,
+      "verify": "",
+      "_todo": "Paste the CertView share badge link, then set show to true."
+    },
+    {
+      "group": "AWS",
+      "name": "AWS Agentic AI Demonstrated",
+      "short": "Agentic AI Demonstrated",
+      "detail": "Timed hands on lab, verified on Credly",
+      "date": "12 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://www.credly.com/badges/8bd5ef28-e5a1-4080-bd15-7b07cfc6e8f8/public_url"
+    },
+    {
+      "group": "Databricks",
+      "name": "Databricks AI Agent Fundamentals",
+      "short": "Databricks AI Agents",
+      "detail": "Accreditation",
+      "date": "Oct 2026",
+      "strip": false,
+      "show": false,
+      "verify": "",
+      "_todo": "Paste the Databricks badge link when it arrives, then set show to true."
+    },
+    {
+      "group": "n8n",
+      "name": "n8n101 Essentials: Your First Workflows",
+      "short": "n8n101",
+      "detail": "Graded hands on course",
+      "date": "12 Oct 2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://badges.n8n.io/d30e0bfb-5b0b-4ed1-a00f-1d8ec1d36efe"
+    },
+    {
+      "group": "n8n",
+      "name": "n8n102 Integrations: APIs and Connected Workflows",
+      "short": "n8n102",
+      "detail": "Graded hands on course",
+      "date": "12 Oct 2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://badges.n8n.io/4c73a990-b429-4578-8d18-3a24368e3f11"
+    },
+    {
+      "group": "n8n",
+      "name": "n8n103 In Practice: AI, Testing and Best Practices",
+      "short": "AI, testing and best practices",
+      "detail": "Graded hands on course",
+      "date": "12 Oct 2026",
+      "strip": true,
+      "show": true,
+      "verify": "https://badges.n8n.io/f82106ec-b15b-4d07-ad75-3ced658be66b"
+    },
+    {
+      "group": "freeCodeCamp and Microsoft",
+      "name": "Foundational C# with Microsoft",
+      "short": "Foundational C#",
+      "detail": "Certification exam",
+      "date": "15 Oct 2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://freecodecamp.org/certification/fcc-914dd9ff-69ea-4379-be53-27b57919c406/foundational-c-sharp-with-microsoft"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Claude Code in Action",
+      "short": "Claude Code in Action",
+      "detail": "Course certificate",
+      "date": "8 Oct 2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/34jbxjhbrpn8"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Claude Code 101",
+      "short": "Claude Code 101",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/c2pxsy4had3v"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Introduction to Model Context Protocol",
+      "short": "Model Context Protocol",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/v3harxy6in7w"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Introduction to subagents",
+      "short": "Subagents",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/6hzao96vr7fr"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Introduction to agent skills",
+      "short": "Agent skills",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/orcqix5gxowq"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "AI Capabilities and Limitations",
+      "short": "AI capabilities and limitations",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/3d6ft8e739nd"
+    },
+    {
+      "group": "Anthropic Academy",
+      "name": "Deploying Claude Enterprise with Confidence",
+      "short": "Deploying Claude Enterprise",
+      "detail": "Course certificate",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://verify.skilljar.com/c/jkkta82gcdt7"
+    },
+    {
+      "group": "OpenAI Academy",
+      "name": "Agents and Workflows",
+      "short": "Agents and Workflows",
+      "detail": "Course and assessment",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://oaiacademy.credential.net/d3951d20-d70a-4906-bc7c-c3a8d36ac623"
+    },
+    {
+      "group": "OpenAI Academy",
+      "name": "Scope AI Solutions",
+      "short": "Scope AI Solutions",
+      "detail": "Course and assessment",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://oaiacademy.credential.net/879e210b-6450-4923-8648-b3ecf634187f"
+    },
+    {
+      "group": "OpenAI Academy",
+      "name": "Evaluate AI Applications",
+      "short": "Evaluate AI Applications",
+      "detail": "Course and assessment",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://oaiacademy.credential.net/a7ec29f0-fb31-4df1-b413-b507c67a1308"
+    },
+    {
+      "group": "OpenAI Academy",
+      "name": "AI Foundations",
+      "short": "AI Foundations",
+      "detail": "Course and assessment",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://oaiacademy.credential.net/af5598c3-a84f-48e6-adaa-122abe0004db"
+    },
+    {
+      "group": "OpenAI Academy",
+      "name": "AI Leadership",
+      "short": "AI Leadership",
+      "detail": "Course and assessment",
+      "date": "2026",
+      "strip": false,
+      "show": true,
+      "verify": "https://oaiacademy.credential.net/e029b6a8-8e7c-41a1-a1a4-dea81cfa1829"
+    }
+  ]
+}
