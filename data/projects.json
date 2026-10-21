@@ -203,6 +203,41 @@
       "proofNote": "The 30 test calls in the repo are scripted, not recorded from a live model, and the README says so. Fictional dental practice and pizzeria."
     },
     {
+      "slug": "grounded-answers",
+      "show": true,
+      "status": "built",
+      "tags": [
+        "ai-agents"
+      ],
+      "title": "Grounded answers: RAG that cites and refuses",
+      "pitch": "An internal policy assistant over a fictional dental practice's documents that cites a source for every claim and says so when the answer is not there.",
+      "number": {
+        "value": "4 to 0",
+        "label": "personal data leaks on a 50 question eval, naive retrieval vs hybrid search with guardrails. Must refuse questions went from 73% to 100% refused",
+        "source": "docs/demo-output.txt in the repo, from make demo. The model answers are scripted for now, and the README says so."
+      },
+      "problem": "A chatbot over company documents sounds confident even when it is wrong, leaks personal data it finds, and follows instructions hidden inside a document.",
+      "built": "Hybrid search (BM25 plus vectors in sqlite-vec) with a local reranker, a citation check that verifies every quote, refusals for low confidence and personal data, and defences against a planted prompt injection. A 50 question eval scores retrieval, citations, refusals, latency and cost.",
+      "before": "Naive vector search: 4 personal data leaks, 73% of must refuse questions refused.",
+      "after": "0 leaks, 100% refused, 98% refusal accuracy, and every citation quote verified. 203 tests pass.",
+      "stack": [
+        "Python",
+        "RAG",
+        "sqlite-vec",
+        "BM25",
+        "fastembed",
+        "Claude API",
+        "pytest"
+      ],
+      "proof": [
+        {
+          "label": "Source, eval set and the method write up on GitHub",
+          "url": "https://github.com/ruan-grobler/grounded-answers"
+        }
+      ],
+      "proofNote": "The reranker made multi hop retrieval slightly worse, and the README reports that instead of hiding it."
+    },
+    {
       "slug": "campaign-brief-agent",
       "show": true,
       "status": "built",
