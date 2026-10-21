@@ -275,13 +275,13 @@
         "voice-ai"
       ],
       "title": "Receva: AI voice receptionist",
-      "pitch": "An AI receptionist on a live demo line takes orders and bookings in SA English or Afrikaans.",
+      "pitch": "An AI receptionist on a live demo line takes orders and bookings for Harbour Slice, a fictional Cape Town pizzeria.",
       "number": null,
       "numberNote": "It runs on a demo line, so there is no client traffic to measure yet.",
       "problem": "At the restaurant I managed, the phone rang most when our hands were fullest, and bookings rang out.",
-      "built": "A Twilio SIP trunk routes calls to a Retell voice agent. The agent's tools call the Receva site, which re-prices every order from the menu and logs each order or booking.",
+      "built": "A Twilio SIP trunk routes calls to a Retell voice agent. The agent's tools call the Receva site, which re-prices every order from the menu server side and sends the SMS confirmation.",
       "before": "Calls missed during the rush, with no record of what the caller wanted.",
-      "after": "Calls to the demo line are answered, transcribed and logged to a dashboard, in either language.",
+      "after": "Calls to the demo line are answered with an AI and recording notice up front, priced from the menu and confirmed by SMS.",
       "stack": [
         "Retell",
         "Twilio SIP trunk",
@@ -298,7 +298,7 @@
           "url": "https://receva.co.za"
         }
       ],
-      "proofNote": "It runs on the real menu of the restaurant I managed until July 2026 and still answers in its name. It was never on the restaurant's phone, and the restaurant is not a client."
+      "proofNote": "Harbour Slice and its menu are fictional, made for the demo. Call +27 87 250 3270 to try it."
     },
     {
       "slug": "receva-desks",
